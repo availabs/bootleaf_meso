@@ -20,7 +20,7 @@ mesoStation = {
 	snowIcon:L.icon({iconUrl: '/linker/js/images/snowy.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	userIcon:L.icon({iconUrl: '/linker/js/images/imp_forecasting.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	drawStations : function() {
-
+		
 		if(mesoStation.markers.length > 0) { mesoStation.clearMarkers(); }
 
 		mesoStation.stations.forEach(function(d,i){
@@ -107,6 +107,7 @@ mesoStation = {
 		$('img[alt="primary"]').hide();
 		$('img[alt="main"]').hide();
 		$('img[alt="user"]').hide();
+		
 	},
 	setDraggable : function(true_or_false){
 		mesoStation.draggable = true_or_false;

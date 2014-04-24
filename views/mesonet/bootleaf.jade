@@ -1,0 +1,311 @@
+html(lang='en' ng-app="app")
+head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width')
+    meta(name='mobile-web-app-capable', content='yes')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title MESONET Site Selection Tool
+    link(rel='stylesheet', href='/linker/bootstrap-3.1.1/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/linker/font-awesome-4.0.3/css/font-awesome.min.css')
+    link(rel='stylesheet', href='/linker/leaflet-0.7.2/leaflet.css')
+    link(rel='stylesheet', href='/linker/leaflet-sidebar/L.Control.Sidebar.css')
+    link(rel='stylesheet', href='/linker/css/main.css')
+    link(rel='apple-touch-icon', href='/linker/img/favicon-152.png')
+    link(rel='shortcut icon', sizes='196x196', href='/linker/img/favicon-196.png')
+    //
+       HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries 
+    //if lt IE 9
+      script(src='/linker/js/html5shiv.js')
+      script(src='/linker/js/respond.min.js')
+
+    script(type="text/javascript", src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false")
+    script(type='text/javascript', src='/linker/js/jquery-1.11.0.min.js')
+    script(src='/linker/bootstrap-3.1.1/js/bootstrap.min.js')
+    script(src='/linker/leaflet-0.7.2/leaflet.js')
+    script(src='/linker/leaflet-sidebar/L.Control.Sidebar.js')
+    script(type="text/javascript", src="/linker/js/socket.io.js")
+    script(src='/linker/js/main.js')
+  
+    script(type='text/javascript', src='/linker/js/src/mesoStations.js')
+    script(type="text/javascript", src="/linker/js/angular.js")
+    script(type="text/javascript", src="/linker/js/angular-socket.io.js")
+    script(type="text/javascript", src="/linker/js/angular-sails.io.js")
+    script(type="text/javascript", src="/linker/js/ui-bootstrap-tpls.js") 
+    script(type="text/javascript", src="/linker/js/app.js")
+    script(type="text/javascript", src="/linker/js/directives/popupDirective.js")
+    script(type="text/javascript", src="/linker/js/services/sailsSocket.js")
+    script(type="text/javascript", src="/linker/js/controllers/mesonetCtrl.js")
+    script(type="text/javascript", src="/linker/js/controllers/sidebarCtrl.js")
+
+
+  body(ng-controller="MesonetCtrl")
+    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+      .navbar-header
+        button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href='#') NY MESONET
+      .navbar-collapse.collapse
+        form.navbar-form.navbar-right(role='search')
+          .form-group.has-feedback.navbar-right
+            input#searchbox.form-control(type='text', placeholder='Search')
+            span#searchicon.fa.fa-search.form-control-feedback
+        ul.nav.navbar-nav
+          li.dropdown
+            a#toolsDrop.dropdown-toggle(href='#', role='button', data-toggle='dropdown')
+              i.fa.fa-globe(style='color: white;')
+              |  Tools
+              b.caret
+            ul.dropdown-menu
+              li
+                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', onclick='map.fitBounds(boroughs.getBounds()); return false;')
+                  i.fa.fa-arrows-alt
+                  |  Zoom To Full Extent
+              li
+                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', onclick='$(\'#legendModal\').modal(\'show\'); return false;')
+                  i.fa.fa-picture-o
+                  |  Show Legend
+              li
+                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="addStation()", ng-show="loggedIn")
+                  i.fa.fa-picture-o
+                  |  Add Station
+              li.divider.hidden-xs
+              li
+                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="openModal()", ng-hide="loggedIn")
+                  i.fa.fa-user
+                  | Login
+              li
+                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="logout()", ng-show="loggedIn")
+                  i.fa.fa-user
+                  | Logout
+          li.dropdown
+            a#downloadDrop.dropdown-toggle(href='#', role='button', data-toggle='dropdown', ng-show="user.accessLevel == 1")
+              i.fa.fa-cloud-download(style='color: white;')
+              |  Export
+              b.caret
+            ul.dropdown-menu
+              li
+                a(ng-click="exportComments()", data-target='.navbar-collapse.in')
+                  i.fa.fa-download
+                  |  Export Comments
+              li
+                a(ng-click="exportStations()", data-target='.navbar-collapse.in')
+                  i.fa.fa-download
+                  |  Export Stations
+          li
+            a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in' onclick='mesonet.sidebar.toggle(); return false;')
+              i.fa.fa-list(style='color: white;')
+              |  Layers
+          li
+            a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
+              i.fa.fa-list(style='color: white;')
+              |  Legend
+          li
+            a(ng-click="saveChanges()", data-target='.navbar-collapse.in')
+              i.fa.fa-floppy-o(style='color: white;')
+              |  Save Changes
+    #map
+    #sidebar(ng-controller="sidebarCtrl")
+      include partials/sidebar
+    
+    #aboutModal.modal.fade(tabindex='-1', role='dialog')
+      .modal-dialog.modal-lg
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+            h4.modal-title Welcome to the BootLeaf template!
+          .modal-body
+            ul#aboutTabs.nav.nav-tabs
+              li.active
+                a(href='#about', data-toggle='tab')
+                  i.fa.fa-question-circle
+                  | About the project
+              li
+                a(href='#contact', data-toggle='tab')
+                  i.fa.fa-envelope
+                  | Contact us
+              li
+                a(href='#disclaimer', data-toggle='tab')
+                  i.fa.fa-exclamation-circle
+                  | Disclaimer
+              li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown')
+                  i.fa.fa-globe
+                  | Metadata
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    a(href='#boroughs-tab', data-toggle='tab') Boroughs
+                  li
+                    a(href='#subway-lines-tab', data-toggle='tab') Subway Lines
+                  li
+                    a(href='#theaters-tab', data-toggle='tab') Theaters
+                  li
+                    a(href='#museums-tab', data-toggle='tab') Museums
+            #aboutTabsContent.tab-content(style='padding-top: 10px;')
+              #about.tab-pane.fade.active.in
+                p
+                  | A simple, responsive template for building web mapping applications with
+                  a(href='http://getbootstrap.com/') Bootstrap 3
+                  | ,
+                  a(href='http://leafletjs.com/', target='_blank') Leaflet
+                  | , and
+                  a(href='http://twitter.github.io/typeahead.js/', target='_blank') typeahead.js
+                  | . Open source, MIT licensed, and available on
+                  a(href='https://github.com/bmcbride/bootleaf', target='_blank') GitHub
+                  | .
+                .panel.panel-primary
+                  .panel-heading Features
+                  ul.list-group
+                    li.list-group-item
+                      | Fullscreen mobile-friendly map template with responsive navbar and modal placeholders
+                    li.list-group-item jQuery loading of external GeoJSON files
+                    li.list-group-item
+                      | Elegant client-side multi-layer feature search with autocomplete using
+                      a(href='http://twitter.github.io/typeahead.js/', target='_blank') typeahead.js
+                    li.list-group-item Integration of Bootstrap tables into Leaflet popups
+                    li.list-group-item
+                      | Logic for minimizing layer control and switching to modal popups on small screens
+                    li.list-group-item
+                      | Responsive sidebar functionality via the
+                      a(href='https://github.com/turbo87/leaflet-sidebar/', target='_blank') leaflet-sidebar
+                      | plugin
+                    li.list-group-item Marker icons included in layer control
+              #disclaimer.tab-pane.fade.text-danger
+                p The data provided on this site is for informational and planning purposes only.
+                p
+                  | Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.
+              #contact.tab-pane.fade
+                form#contact-form
+                  .well.well-sm
+                    .row
+                      .col-md-4
+                        .form-group
+                          label(for='first-name') First Name:
+                          input#first-name.form-control(type='text')
+                        .form-group
+                          label(for='last-name') Last Name:
+                          input#last-email.form-control(type='text')
+                        .form-group
+                          label(for='email') Email:
+                          input#email.form-control(type='text')
+                      .col-md-8
+                        label(for='message') Message:
+                        textarea#message.form-control(rows='8')
+                      .col-md-12
+                        p
+                          button.btn.btn-primary.pull-right(type='submit', data-dismiss='modal') Submit
+              #boroughs-tab.tab-pane.fade
+                p
+                  | Borough data courtesy of
+                  a(href='http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml', target='_blank') New York City Department of City Planning
+              #subway-lines-tab.tab-pane.fade
+                p
+                  a(href='http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks', target='_blank') MTA Subway data
+                  | courtesy of the
+                  a(href='http://www.urbanresearch.org/about/cur-components/cuny-mapping-service', target='_blank') CUNY Mapping Service at the Center for Urban Research
+              #theaters-tab.tab-pane.fade
+                p
+                  | Theater data courtesy of
+                  a(href='https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w', target='_blank') NYC Department of Information & Telecommunications (DoITT)
+              #museums-tab.tab-pane.fade
+                p
+                  | Museum data courtesy of
+                  a(href='https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb', target='_blank') NYC Department of Information & Telecommunications (DoITT)
+
+    script(type="text/ng-template", id="LoginModalContent.html")
+      .modal-header
+        h3.panel-title.modal-title
+          = 'Login'
+      .modal-body
+        .alert.alert-danger(ng-show="message!=''") {{message}}
+        form.form-horizontal(role="form", action="/login", method="post")
+          .form-group
+            label.col-sm-2.control-label(for="loginUsername") Username
+            .col-sm-10
+              input.form-control(type="text", id="loginUsername", name="username", placeholder="Username", ng-model="username")
+          .form-group
+            label.col-sm-2.control-label(for="loginPassword") Password
+            .col-sm-10
+              input.form-control(type="password", id="loginPassword", name="password", placeholder="Password",ng-model="password")
+      .modal-footer
+        .form-group
+            button.btn.btn-primary(ng-click="ok('login',username,password)") Login
+            button.btn.btn-default(ng-click="cancel()") Cancel
+
+    script(type="text/ng-template", id="CommentModalContent.html")
+      .modal-header
+        h3.panel-title.modal-title
+          = 'Comment on Station {{station_id}}' 
+      .modal-body
+        .alert.alert-danger(ng-show="message!=''") {{message}}
+        form.form-horizontal(role="form", action="/login", method="post")
+          .form-group
+            .col-sm-12
+              ='Reason for station '
+                select(ng-model='comment.type', ng-change='changeIcon(station)', style='padding: 5px; background-color: #fff;border:1px solid')
+                  option(value='improving')  Improving forecasting
+                  option(value='profiler')  Profiler site 
+                  option(value='high-impact')  Frequent high-impact events 
+                  option(value='deficiency')  Model deficiency areas 
+                  option(value='other-sectors')  Beneficial to other sectors 
+                  option(value='snow')  Snow measurement site
+             .col-sm-12
+                br
+                ='1st Tier Station? '
+                select(ng-model='comment.primary', style='padding: 5px; background-color: #fff;border:1px solid')
+                  option(value='Yes') Yes
+                  option(value='No')  No 
+
+          .form-group
+            .col-sm-12
+              textarea.form-control( placeholder="Comment", name="Comment" ng-model="comment.body")
+          .form-group(ng-hide="user.id")
+            label.col-sm-2.control-label(for="loginUsername") Name
+            .col-sm-10
+              input.form-control(type="text", id="loginUsername", name="username", placeholder="Your name", ng-model="comment.username")
+          .form-group(ng-show="user.id")
+            label.control-label(style="float:right;margin-right:10px;") 
+              ='Commenting as ' 
+              strong {{ user.username }}
+      .modal-footer
+        .form-group
+            button.btn.btn-primary(ng-click="ok('submit')") Submit
+            button.btn.btn-default(ng-click="cancel()") Cancel
+
+    script(type="text/ng-template", id="ViewCommentModalContent.html")
+      .modal-header
+        h3.panel-title.modal-title
+          = 'Comments on Station {{station_id}}' 
+      .modal-body(style='height:200px;overflow-y:scroll;')
+        table.table.table-hover
+          thead
+            tr
+              th 
+                strong User
+              th 
+                strong Comment
+          tbody
+            tr(ng-repeat="comment in comments")
+              td {{comment.username}}
+              td {{comment.body}}
+      .modal-footer
+        .form-group
+            button.btn.btn-primary(ng-click="ok('submit')") Ok
+           
+            
+
+    script(type="text/ng-template", id="errorModalContent.html")
+      .modal-body
+        .alert.alert-info.no-margin-bot
+          div: strong Please wait:
+          div Connecting to Mesonet server
+
+
+   
+    
+   

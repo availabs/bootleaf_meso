@@ -51,6 +51,10 @@ module.exports.routes = {
     controller:'GeodataController',
     action:'getPointInfo'
   },
+ 
+  '/bootleaf':{
+    view: 'mesonet/bootleaf'
+  },
   
   //
   // Passport Auth Routes

@@ -1,7 +1,6 @@
 /*jslint node: true */
-app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, $log, $compile, $timeout, $http){
+app.controller('MesonetCtrl', function MesonetCtrl($scope, sailsSocket, $log, $compile, $timeout, $http){
   mesonet.init();
-  
   console.log(mesonet.map)
   $('#main-nav').css('display','block');
   var elevator = new google.maps.ElevationService();
@@ -28,16 +27,16 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 					sailsSocket.get(
 					'/mesoMap/4',{},
 					function(response){
-							
+							console.log("gettingdata",response);
 							$scope.mesoMap = response.id;
 							$scope.stations = response.mapData;
 							console.log($scope.stations);
 							mesoStation.stations = $scope.stations;
-							
+							console.log("going to draw", $scope.stations);
 							mesoStation.drawStations();
 							mesoStation.setDraggable(false);
 							$scope.markers = mesoStation.markers;
-							
+							console.log('binding');
 							$scope.bindMarkers($scope.editable);
 							
 				});
@@ -183,6 +182,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	};
     
 	mesonet.map.on('click',function(e){
+		console.log('click?');
 		if($scope.addMarker){
 			
 			var old_station =  $scope.stations[$scope.stations.length-1];
@@ -321,39 +321,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 					});
 				});
 		});
-	};
-	$scope.$on('viewComment',function(evt,station_id){
-		var station_index = -1;
-		$scope.stations.forEach(function(d,i){
-			if(d.id == station_id){
-				station_index = i;
-			}
-		});
-		var modalInstance = $modal.open({
-	      templateUrl: 'ViewCommentModalContent.html',
-	      controller: ViewCommentModalCtrl,
-	      resolve: {
-					comments: function () { return $scope.stations[station_index].comments; },
-	      }
-	    });
-	});
-
-	$scope.$on('comment', function(evt,value){
-		$scope.current_station = value;
-		var modalInstance = $modal.open({
-	      templateUrl: 'CommentModalContent.html',
-	      controller: CommentModalCtrl,
-	      resolve: {
-				user: function () { return $scope.user; },
-	        	station_id: function () { return $scope.current_station; },
-	        	map_id: function () { return $scope.mesoMap.id; }
-	      }
-    	});
-		modalInstance.result.then(function (result) {
-			//if()
-		});
-	});
-
+	};	
 	$scope.$on('delete_station', function (evt, value) {
 		var delete_index = -1;
 		$scope.stations.forEach(function(d,i){
@@ -403,7 +371,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	});
 
 	$scope.bindMarkers = function(editable){
-		
+		console.log('bind markers');
 		$scope.markers.forEach(function(marker,i){
 			var current_editable = editable;
 			if($scope.stations[i].type == 'user') { 
@@ -484,98 +452,5 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 
 	};
   
-  //
-  // Login modal
-  //
-  $scope.openModal = function () {
-		var modalInstance = $modal.open({
-      templateUrl: 'LoginModalContent.html',
-      controller: LoginModalCtrl,
-      resolve: {}
-    });
-    
-    modalInstance.result.then(function (result) {
-			if(result.user){ // Get Stations
-				$scope.loggedIn = true;
-				$scope.user = result.user;
-				$scope.getUserStations();
-				$('#layers_selector_user').show();
-				$('#main-nav').show();
-
-			}
-    });
-  };
-  
-  //
-	// Log Out
-	//
-	$scope.logout = function () {
-		sailsSocket.post('/logout', {},
-			function(response) {
-				$scope.user = {};
-				$scope.loggedIn = false;
-				mesoStation.setDraggable(false);
-				$('#users').hide();
-				$('#layers_selector_user').hide();
-			});
-	};
-	
 });
 
-function CommentModalCtrl($scope, $modalInstance,sailsSocket,user,station_id,map_id) {
-	$scope.message='';
-	$scope.user = user;
-	$scope.station_id = station_id;
-	$scope.comment = {};
-	$scope.comment.mapId = map_id;
-	$scope.comment.stationId = station_id;
-	$scope.comment.primary = '';
-
-	if($scope.user.id){
-	
-		$scope.comment.userId = $scope.user.id;
-		$scope.comment.username = $scope.user.username;
-	
-	} else { $scope.comment.userId = -1; }
-
-	$scope.ok = function (action) {
-		sailsSocket.post('/comment',$scope.comment,
-			function(response){
-				$modalInstance.close({comment_id : response.id});
-		});
-	};
-	$scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-}
-
-function ViewCommentModalCtrl($scope, $modalInstance,comments) {
-	$scope.comments = comments;
-	
-  $scope.ok = function (action,u,p) {
-			$modalInstance.close();
-	};
-}
-
-function LoginModalCtrl($scope, $modalInstance,sailsSocket) {
-	$scope.username='';
-	$scope.password='';
-	$scope.message='';
-    
-  $scope.ok = function (action,u,p) {
-		sailsSocket.post('/socketLogin', {username: u,password:p},
-			function(response) {
-				if(response.status == 'failed'){
-					$scope.message = response.message;
-				}else{
-					$modalInstance.close({ user: response.user_info});
-				}
-		});
-		
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
- 
-}

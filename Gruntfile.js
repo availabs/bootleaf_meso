@@ -28,7 +28,6 @@ module.exports = function (grunt) {
 
   var cssFilesToInject = [
     'linker/styles/font-awesome.css',
-    'linker/styles/bootstrap.css',
     //'linker/**/*.css'
   ];
 
@@ -45,17 +44,15 @@ module.exports = function (grunt) {
 
     // Below, as a demonstration, you'll see the built-in dependencies 
     // linked in the proper order order
-    'linker/js/jquery.js',
-    'linker/js/angular.js',
-    'linker/js/ui-bootstrap.js',
-    'linker/js/ui-bootstrap-tpls.js',
-    'linker/js/socket.io.js',
-    'linker/js/angular-socket.io.js',
-    'linker/js/angular-sails.io.js',
-    'linker/js/app.js',
+    // 'linker/js/jquery.js',
+    // 'linker/js/angular.js',
+    // 'linker/js/socket.io.js',
+    // 'linker/js/angular-socket.io.js',
+    // 'linker/js/angular-sails.io.js',
+    // 'linker/js/app.js',
 
     // All of the rest of your app scripts imported here
-    'linker/**/*.js'
+    //'linker/**/*.js'
   ];
 
 
@@ -147,11 +144,8 @@ module.exports = function (grunt) {
             src: ['**/*'],
             dest: '.tmp/public/linker/fonts'
           },
-          { '.tmp/public/linker/js/jquery.js':            './bower_components/jquery/jquery.js' },
           { '.tmp/public/linker/js/socket.io.js':         './bower_components/socket.io-client/dist/socket.io.js' },
           { '.tmp/public/linker/js/angular.js':           './bower_components/angular/angular.js' },
-          { '.tmp/public/linker/js/ui-bootstrap.js':      './bower_components/angular-bootstrap/ui-bootstrap.js' },
-          { '.tmp/public/linker/js/ui-bootstrap-tpls.js': './bower_components/angular-bootstrap/ui-bootstrap-tpls.js' },
           { '.tmp/public/linker/js/angular-socket.io.js': './bower_components/angular-socket-io/socket.js' },
           { '.tmp/public/linker/js/angular-resource.js': './bower_components/angular-resource/angular-resource.js' },
         ]
