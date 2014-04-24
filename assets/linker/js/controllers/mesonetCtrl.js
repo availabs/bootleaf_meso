@@ -1,8 +1,6 @@
 /*jslint node: true */
 app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, $log, $compile, $timeout, $http){
   mesonet.init();
-  
-  console.log(mesonet.map)
   $('#main-nav').css('display','block');
   var elevator = new google.maps.ElevationService();
   $scope.loggedIn = false;
@@ -31,7 +29,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 							
 							$scope.mesoMap = response.id;
 							$scope.stations = response.mapData;
-							console.log($scope.stations);
+							
 							mesoStation.stations = $scope.stations;
 							
 							mesoStation.drawStations();

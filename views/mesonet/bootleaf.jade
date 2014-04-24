@@ -13,6 +13,7 @@ head
     link(rel='stylesheet', href='/linker/leaflet-0.7.2/leaflet.css')
     link(rel='stylesheet', href='/linker/leaflet-sidebar/L.Control.Sidebar.css')
     link(rel='stylesheet', href='/linker/css/main.css')
+    link(rel='stylesheet', type='text/css', href='/linker/styles/style.css')  
     link(rel='apple-touch-icon', href='/linker/img/favicon-152.png')
     link(rel='shortcut icon', sizes='196x196', href='/linker/img/favicon-196.png')
     //
@@ -27,6 +28,9 @@ head
     script(src='/linker/leaflet-0.7.2/leaflet.js')
     script(src='/linker/leaflet-sidebar/L.Control.Sidebar.js')
     script(type="text/javascript", src="/linker/js/socket.io.js")
+    script(type='text/javascript', src='/linker/js/d3.v3.min.js')
+    script(type='text/javascript', src="http://d3js.org/topojson.v1.min.js")
+    script(type="text/javascript", src="/linker/js/leaflet-d3-layer.js")
     script(src='/linker/js/main.js')
   
     script(type='text/javascript', src='/linker/js/src/mesoStations.js')
@@ -54,6 +58,17 @@ head
           .form-group.has-feedback.navbar-right
             input#searchbox.form-control(type='text', placeholder='Search')
             span#searchicon.fa.fa-search.form-control-feedback
+        ul.nav.navbar-nav.navbar-right
+          li.dropdown
+            a#legendDrop.dropdown-toggle(href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
+              i.fa.fa-picture-o(style='color: white;')
+              |  Legend
+              b.caret
+            ul#legend-list.dropdown-menu
+              li
+                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', onclick='map.fitBounds(boroughs.getBounds()); return false;')
+                  i.fa.fa-arrows-alt
+                  |  A legend Item
         ul.nav.navbar-nav
           li.dropdown
             a#toolsDrop.dropdown-toggle(href='#', role='button', data-toggle='dropdown')
@@ -97,13 +112,9 @@ head
                   i.fa.fa-download
                   |  Export Stations
           li
-            a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in' onclick='mesonet.sidebar.toggle(); return false;')
+            a#layers(href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
               i.fa.fa-list(style='color: white;')
               |  Layers
-          li
-            a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
-              i.fa.fa-list(style='color: white;')
-              |  Legend
           li
             a(ng-click="saveChanges()", data-target='.navbar-collapse.in')
               i.fa.fa-floppy-o(style='color: white;')

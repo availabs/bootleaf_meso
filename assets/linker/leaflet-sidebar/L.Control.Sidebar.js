@@ -10,7 +10,6 @@ L.Control.Sidebar = L.Control.extend({
 
     initialize: function (placeholder, options) {
         L.setOptions(this, options);
-
         // Find content container
         var content = this._contentContainer = L.DomUtil.get(placeholder);
 
@@ -26,7 +25,7 @@ L.Control.Sidebar = L.Control.extend({
         // Style and attach content container
         L.DomUtil.addClass(content, l + 'control');
         container.appendChild(content);
-
+      
         // Create close button and attach it if configured
         if (this.options.closeButton) {
             var close = this._closeButton =
@@ -38,7 +37,7 @@ L.Control.Sidebar = L.Control.extend({
     addTo: function (map) {
         var container = this._container;
         var content = this._contentContainer;
-
+        
         // Attach event to close button
         if (this.options.closeButton) {
             var close = this._closeButton;
@@ -141,6 +140,7 @@ L.Control.Sidebar = L.Control.extend({
     },
 
     toggle: function () {
+       
         if (this.isVisible()) {
             this.hide();
         } else {

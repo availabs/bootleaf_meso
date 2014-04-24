@@ -52,6 +52,11 @@ module.exports.routes = {
     action:'getPointInfo'
   },
  
+   '/geodata/getLayer':{
+    controller:'GeodataController',
+    action:'getLayer'
+  },
+
   '/bootleaf':{
     view: 'mesonet/bootleaf'
   },

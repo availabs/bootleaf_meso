@@ -45,14 +45,22 @@ var mesonet = {
       collapsed: isCollapsed
     }).addTo(mesonet.map);
 
-/*
-    mesonet.sidebar = L.control.sidebar("sidebar", {
-      closeButton: true,
-      position: "left"
-    }).addTo(mesonet.map);
-      
-*/
+    
+
+    var sidebarLoaded = false; 
+    $("#layers").click(function(){
+      if(!sidebarLoaded){
+        mesonet.sidebar = L.control.sidebar('sidebar', { position: 'left'});
+        mesonet.map.addControl(mesonet.sidebar);
+        sidebarLoaded = true;
+        mesonet.sidebar.show();
+      }else{
+        mesonet.sidebar.toggle();
+      }
+    });
+
     /* Highlight search box text on click */
+    
     $("#searchbox").click(function () {
       $(this).select();
     });
