@@ -19,11 +19,11 @@
       this.updateData();
     },
     updateData: function() {
-      var bounds, feature, g, join, path, paths, project, reset, styler, svg,map;
+      var bounds, feature, g, join, path, paths, project, reset, styler, svg,map,layer_options;
       map = this._map
       g = this._g;
       svg = this._svg;
-
+      layer_options = this.options
       if (this.geojson.type == "Topology") {
         this.geojson = root.topojson.feature(this.geojson, this.geojson.objects.features);
        
@@ -33,6 +33,34 @@
         return d.id;
       });
       feature = join.enter().append("path");
+      
+      if(typeof layer_options.mouseover !='undefined'){
+        console.log(layer_options);
+        feature.on("mouseover", function(d) {
+          if(typeof layer_options.mouseover.style != 'undefined'){
+            for(key in layer_options.mouseover.style){
+              $(this).css(key,layer_options.mouseover.style[key]);
+            }
+          }
+          if(typeof layer_options.mouseover.info != 'undefined'){
+            var text = "<p>";
+            layer_options.mouseover.info.forEach(function(option){
+              text += ""+ option.name+d.properties[option.prop]+"<br>";  
+            })
+            text+="</p>";
+            $("#info").show().html(text);
+          }
+        })
+        .on("mouseout", function(self) {
+          if(typeof layer_options.mouseover.style != 'undefined'){
+            for(key in layer_options.mouseover.style){
+              $(this).css(key,layer_options.style[key]);
+            }
+          }
+          $("#info").hide().html("");
+        });
+      }
+      
       join.exit().remove();
       if (this.options.styler != null) {
         styler = this.options.styler;

@@ -13,7 +13,6 @@ head
     link(rel='stylesheet', href='/linker/leaflet-0.7.2/leaflet.css')
     link(rel='stylesheet', href='/linker/leaflet-sidebar/L.Control.Sidebar.css')
     link(rel='stylesheet', href='/linker/css/main.css')
-    link(rel='stylesheet', type='text/css', href='/linker/styles/style.css')  
     link(rel='apple-touch-icon', href='/linker/img/favicon-152.png')
     link(rel='shortcut icon', sizes='196x196', href='/linker/img/favicon-196.png')
     //
@@ -46,7 +45,7 @@ head
 
 
   body(ng-controller="MesonetCtrl")
-    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+    .navbar.navbar-fixed-top(role='navigation')
       .navbar-header
         button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
           span.icon-bar
@@ -60,46 +59,70 @@ head
             span#searchicon.fa.fa-search.form-control-feedback
         ul.nav.navbar-nav.navbar-right
           li.dropdown
-            a#legendDrop.dropdown-toggle(href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
-              i.fa.fa-picture-o(style='color: white;')
+            a#legendDrop.dropdown-toggle(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
+              i.fa.fa-picture-o(style='color: black;')
               |  Legend
               b.caret
-            ul#legend-list.dropdown-menu
-              li
-                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', onclick='map.fitBounds(boroughs.getBounds()); return false;')
-                  i.fa.fa-arrows-alt
-                  |  A legend Item
+            ul#legend-list(style='color:black;padding-left:20px;padding-right:20px').dropdown-menu
+              li Proposed Sites
+                  li
+                    img(src='/linker/js/images/green.png' style="width:20px;height:20px")
+                    | Mesonet Site
+                  li
+                    img(src='/linker/js/images/orange.png' style="width:20px;height:20px")
+                    | Mesonet Profiler
+                  li
+                    img(src='/linker/js/images/blue.png' style="width:20px;height:20px")
+                    | SUNY Site
+                  li 
+                    img(src='/linker/js/images/imp_forecasting.png' style="width:20px;height:20px")  
+                    | User Added site
+                  <hr>
+              li First Sites
+                  li
+                    img(src='/linker/js/images/grnsq.png' style="width:20px;height:20px") 
+                    img(src='/linker/js/images/greentri.png' style="width:20px;height:20px")
+                    | NEPP Site
+                  li
+                    img(src='/linker/js/images/bluesq.png' style="width:20px;height:20px")
+                    img(src='/linker/js/images/bluetri.png' style="width:20px;height:20px")
+                    | SUNY Site
+                  li
+                    img(src='/linker/js/images/redsq.png' style="width:20px;height:20px")
+                    img(src='/linker/js/images/redtri.png' style="width:20px;height:20px")
+                    | Profiler Site
+                  li 
+                    img(src='/linker/js/images/ylwsq.png' style="width:20px;height:20px") 
+                    img(src='/linker/js/images/ylwtri.png' style="width:20px;height:20px")  
+                    | Canal Corp Site
+                  <hr>
         ul.nav.navbar-nav
           li.dropdown
-            a#toolsDrop.dropdown-toggle(href='#', role='button', data-toggle='dropdown')
-              i.fa.fa-globe(style='color: white;')
+            a#toolsDrop.dropdown-toggle(style='color:black;',href='#', role='button', data-toggle='dropdown')
+              i.fa.fa-globe(style='color: black;')
               |  Tools
               b.caret
             ul.dropdown-menu
               li
-                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', onclick='map.fitBounds(boroughs.getBounds()); return false;')
+                a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', onclick='map.fitBounds(boroughs.getBounds()); return false;')
                   i.fa.fa-arrows-alt
                   |  Zoom To Full Extent
               li
-                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', onclick='$(\'#legendModal\').modal(\'show\'); return false;')
-                  i.fa.fa-picture-o
-                  |  Show Legend
-              li
-                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="addStation()", ng-show="loggedIn")
+                a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="addStation()", ng-show="loggedIn")
                   i.fa.fa-picture-o
                   |  Add Station
               li.divider.hidden-xs
               li
-                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="openModal()", ng-hide="loggedIn")
+                a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="openModal()", ng-hide="loggedIn")
                   i.fa.fa-user
                   | Login
               li
-                a(href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="logout()", ng-show="loggedIn")
+                a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="logout()", ng-show="loggedIn")
                   i.fa.fa-user
                   | Logout
           li.dropdown
-            a#downloadDrop.dropdown-toggle(href='#', role='button', data-toggle='dropdown', ng-show="user.accessLevel == 1")
-              i.fa.fa-cloud-download(style='color: white;')
+            a#downloadDrop.dropdown-toggle(style='color:black;',href='#', role='button', data-toggle='dropdown', ng-show="user.accessLevel == 1")
+              i.fa.fa-cloud-download(style='color: black;')
               |  Export
               b.caret
             ul.dropdown-menu
@@ -112,122 +135,18 @@ head
                   i.fa.fa-download
                   |  Export Stations
           li
-            a#layers(href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
-              i.fa.fa-list(style='color: white;')
+            a#layers(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
+              i.fa.fa-list(style='color: black;')
               |  Layers
           li
-            a(ng-click="saveChanges()", data-target='.navbar-collapse.in')
-              i.fa.fa-floppy-o(style='color: white;')
+            a(ng-click="saveChanges()", data-target='.navbar-collapse.in',style='color: black;')
+              i.fa.fa-floppy-o(style='color: black;')
               |  Save Changes
     #map
     #sidebar(ng-controller="sidebarCtrl")
       include partials/sidebar
+    #info
     
-    #aboutModal.modal.fade(tabindex='-1', role='dialog')
-      .modal-dialog.modal-lg
-        .modal-content
-          .modal-header
-            button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-            h4.modal-title Welcome to the BootLeaf template!
-          .modal-body
-            ul#aboutTabs.nav.nav-tabs
-              li.active
-                a(href='#about', data-toggle='tab')
-                  i.fa.fa-question-circle
-                  | About the project
-              li
-                a(href='#contact', data-toggle='tab')
-                  i.fa.fa-envelope
-                  | Contact us
-              li
-                a(href='#disclaimer', data-toggle='tab')
-                  i.fa.fa-exclamation-circle
-                  | Disclaimer
-              li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                  i.fa.fa-globe
-                  | Metadata
-                  b.caret
-                ul.dropdown-menu
-                  li
-                    a(href='#boroughs-tab', data-toggle='tab') Boroughs
-                  li
-                    a(href='#subway-lines-tab', data-toggle='tab') Subway Lines
-                  li
-                    a(href='#theaters-tab', data-toggle='tab') Theaters
-                  li
-                    a(href='#museums-tab', data-toggle='tab') Museums
-            #aboutTabsContent.tab-content(style='padding-top: 10px;')
-              #about.tab-pane.fade.active.in
-                p
-                  | A simple, responsive template for building web mapping applications with
-                  a(href='http://getbootstrap.com/') Bootstrap 3
-                  | ,
-                  a(href='http://leafletjs.com/', target='_blank') Leaflet
-                  | , and
-                  a(href='http://twitter.github.io/typeahead.js/', target='_blank') typeahead.js
-                  | . Open source, MIT licensed, and available on
-                  a(href='https://github.com/bmcbride/bootleaf', target='_blank') GitHub
-                  | .
-                .panel.panel-primary
-                  .panel-heading Features
-                  ul.list-group
-                    li.list-group-item
-                      | Fullscreen mobile-friendly map template with responsive navbar and modal placeholders
-                    li.list-group-item jQuery loading of external GeoJSON files
-                    li.list-group-item
-                      | Elegant client-side multi-layer feature search with autocomplete using
-                      a(href='http://twitter.github.io/typeahead.js/', target='_blank') typeahead.js
-                    li.list-group-item Integration of Bootstrap tables into Leaflet popups
-                    li.list-group-item
-                      | Logic for minimizing layer control and switching to modal popups on small screens
-                    li.list-group-item
-                      | Responsive sidebar functionality via the
-                      a(href='https://github.com/turbo87/leaflet-sidebar/', target='_blank') leaflet-sidebar
-                      | plugin
-                    li.list-group-item Marker icons included in layer control
-              #disclaimer.tab-pane.fade.text-danger
-                p The data provided on this site is for informational and planning purposes only.
-                p
-                  | Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.
-              #contact.tab-pane.fade
-                form#contact-form
-                  .well.well-sm
-                    .row
-                      .col-md-4
-                        .form-group
-                          label(for='first-name') First Name:
-                          input#first-name.form-control(type='text')
-                        .form-group
-                          label(for='last-name') Last Name:
-                          input#last-email.form-control(type='text')
-                        .form-group
-                          label(for='email') Email:
-                          input#email.form-control(type='text')
-                      .col-md-8
-                        label(for='message') Message:
-                        textarea#message.form-control(rows='8')
-                      .col-md-12
-                        p
-                          button.btn.btn-primary.pull-right(type='submit', data-dismiss='modal') Submit
-              #boroughs-tab.tab-pane.fade
-                p
-                  | Borough data courtesy of
-                  a(href='http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml', target='_blank') New York City Department of City Planning
-              #subway-lines-tab.tab-pane.fade
-                p
-                  a(href='http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks', target='_blank') MTA Subway data
-                  | courtesy of the
-                  a(href='http://www.urbanresearch.org/about/cur-components/cuny-mapping-service', target='_blank') CUNY Mapping Service at the Center for Urban Research
-              #theaters-tab.tab-pane.fade
-                p
-                  | Theater data courtesy of
-                  a(href='https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w', target='_blank') NYC Department of Information & Telecommunications (DoITT)
-              #museums-tab.tab-pane.fade
-                p
-                  | Museum data courtesy of
-                  a(href='https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb', target='_blank') NYC Department of Information & Telecommunications (DoITT)
-
     script(type="text/ng-template", id="LoginModalContent.html")
       .modal-header
         h3.panel-title.modal-title

@@ -28,7 +28,7 @@ input[type="radio"], input[type="checkbox"] {
 .navbar .navbar-brand {
   font-weight: bold;
   font-size: 25px;
-  color: white;
+  color: black;
 }
 .navbar-collapse.in {
   overflow-y: hidden;
@@ -95,6 +95,10 @@ input[type="radio"], input[type="checkbox"] {
   top: 5px;
   background: transparent;
 }
+/*layer styling*/
+
+#dropdown-menu {color:'black';}
+
 @media (max-width: 992px) {
   .navbar .navbar-brand {
     font-size: 18px;
@@ -117,3 +121,28 @@ input[type="radio"], input[type="checkbox"] {
     display: none !important;
   }
 }
+
+#info                       {background:#fff; border-top:5px solid #222; border-bottom:1px solid #222; color:#222; display:none; font-size:.875em; padding:10px 15px 5px 15px; position:absolute; width:auto; z-index:99;}
+#info p                       {font-size:1em; line-height:1.4; margin:0 0 10px 0;}
+#info span                      {font-size:.875em; text-transform:uppercase;}
+
+a.list-group-item.ng-scope.ng-binding {
+color: black;
+
+}
+a.list-group-item.ng-scope.ng-binding.active {
+color: white;
+opacity:0.8;
+background-color:black;
+border-color:black;
+}
+
+a.accordion-toggle.ng-binding {
+color: black;
+
+}
+.panel-group {
+margin-bottom: 5px;
+padding-right: 5px;
+}
+.close{right:12px;}

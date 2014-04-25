@@ -1,6 +1,7 @@
+h3 Map Layers
 accordion(close-others='oneAtATime')
-  accordion-group(heading='{{group.name}}', ng-repeat='group in Layers')
-    .list-group
+   accordion-group(heading='{{group.name}}', ng-repeat='group in Layers')
+    .list-group#layersdiv(style='color:black;')
       a.list-group-item(ng-class='isVisible(layer)', ng-repeat='layer in group.layers', ng-click='layerClick(layer)') {{layer.name}}
 
    
