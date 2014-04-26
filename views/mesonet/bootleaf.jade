@@ -46,7 +46,7 @@ head
 
   body(ng-controller="MesonetCtrl")
     .navbar.navbar-fixed-top(role='navigation')
-      .navbar-header
+      .navbar-header(style="color:black;")
         button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
           span.icon-bar
           span.icon-bar
@@ -104,7 +104,7 @@ head
               b.caret
             ul.dropdown-menu
               li
-                a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', onclick='map.fitBounds(boroughs.getBounds()); return false;')
+                a#zoom(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
                   i.fa.fa-arrows-alt
                   |  Zoom To Full Extent
               li

@@ -151,12 +151,10 @@
 
 .leaflet-sidebar .close {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    padding-top: 15px;
     width: 31px;
     height: 31px;
-
-    color: #333;
+    color: black !important;
     font-size: 25pt;
     line-height: 1em;
     text-align: center;

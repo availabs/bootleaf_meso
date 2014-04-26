@@ -18,8 +18,9 @@ var mesonet = {
       subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
       attribution: 'Labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
     })]);
-    mesonet.rainfall = new L.tileLayer('http://vis.availabs.org/mesonet/data/tiles/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 10,tms: true,opacity:0.5});
-    mesonet.floodplains = new L.tileLayer('http://vis.availabs.org/mesonet/data/flood_planes/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 12,tms: true,opacity:1});
+
+    var rainfall = L.tileLayer('http://vis.availabs.org/mesonet/data/tiles/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 10,tms: true,opacity:0.5});
+    var floodplains = L.tileLayer('http://vis.availabs.org/mesonet/data/flood_planes/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 12,tms: true,opacity:1});
     
     mesonet.map = L.map("map", {
           center: [42.76314586689494,-74.7509765625],
@@ -27,12 +28,19 @@ var mesonet = {
       layers: [mapquestOSM]
     });
 
+    //rainfall.addTo(mesonet.map);
+    //floodplains.addTo(mesonet.map);
+
     var baseLayers = {
       "Street Map": mapquestOSM,
       "Aerial Imagery": mapquestOAM,
-      "Imagery with Streets": mapquestHYB
+      "Imagery with Streets": mapquestHYB,
+      "Rainfall": rainfall,
+      "Flood Plains": floodplains
     };
 
+    
+    
     var layerControl = L.control.layers(baseLayers, {}, {
       collapsed: true
     }).addTo(mesonet.map);
@@ -49,11 +57,16 @@ var mesonet = {
       }
     });
 
-    /* Highlight search box text on click */
-    
+    $( "#zoom" ).click(function() {
+      var bounds = rainfall.getBounds();
+      //console.log(rainfall.getBounds());
+      map.fitBounds(bou);
+    });
+      /* Highlight search box text on click */
+    /*
     $("#searchbox").click(function () {
       $(this).select();
-    });
+    });*/
     popup.init();
     /* Placeholder hack for IE */
     if (navigator.appName == "Microsoft Internet Explorer") {
@@ -80,7 +93,7 @@ var popup = {
     init : function() {
 
     // position popup
-    windowW = $(window).width();
+    //windowW = $(window).width();
     $("#map").on("mousemove", function(e) {
       
       var x = e.pageX + 20;

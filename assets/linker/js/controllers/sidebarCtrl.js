@@ -47,8 +47,8 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
           {name:'MARFC SubBasins',selector:'marfc', loaded:false, visible:false, type:'d3',style:{stroke:'black','stroke-width':'2',opacity:'0.4',fill:'#FF6600'},mouseover:{info:[{name:"<strong>",prop:"name_long"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
           {name:'NYS SubBasins (HUC 8)',selector:'huc8', loaded:false, visible:false, type:'d3',style:{opacity:'0.4',stroke:'black','stroke-width':'2',fill:'FF6600'},mouseover:{info:[{name:"<strong>",prop:"Name"},{name:"</strong>HUC8: ",prop:"HUC8"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
           {name:'NYS Watersheds (HUC 10)',selector:'huc10', loaded:false, visible:false, type:'d3',style:{stroke:'black','stroke-width':'2',opacity:'0.4',fill:'#3399FF'},mouseover:{info:[{name:"HUC10:",prop:"huc10"},{name:"Name: ",prop:"Name"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
-          {name:'Average Rainfall',selector:'rainfall', loaded:false, visible:false, type:'d3',style:{stroke:'black','stroke-width':'2',opacity:'0.4',fill:'#'}},
-          {name:'Flood Hazard Zones',selector:'floodplains', loaded:false, visible:false, type:'d3',style:{stroke:'black','stroke-width':'2',opacity:'0.4',fill:'#'}}
+          {name:'Average Rainfall',selector:'rainfall', loaded:false, visible:false, type:'leaflet'},
+          {name:'Flood Hazard Zones',selector:'floodplains', loaded:false, visible:false, type:'leaflet'}
         
         ]
     },
@@ -62,6 +62,9 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
     }
 
   ];
+
+
+  
 
   $scope.oneAtATime = false;
   $scope.layerClick=function(layer){
@@ -101,7 +104,7 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
     }
     
   }
-  
+
   $scope.isVisible = function(layer){
     if(layer.visible){
       return "active";
