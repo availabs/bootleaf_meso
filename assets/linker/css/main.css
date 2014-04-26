@@ -138,7 +138,7 @@ border-color:black;
 }
 
 a.accordion-toggle.ng-binding {
-color: black;
+color: white;
 
 }
 .panel-group {
@@ -146,3 +146,25 @@ margin-bottom: 5px;
 padding-right: 5px;
 }
 .close{right:12px;}
+
+.panel-body {
+padding: 5px;
+}
+
+.list-group {
+margin-bottom: 0px; 
+padding-left: 0;
+}
+
+.panel-default>.panel-heading {
+color: #333;
+background-color: rgb(131, 169, 211);
+ 
+}
+.leaflet-popup-content {
+margin-top: 5px;
+margin-bottom: 5px;
+margin-left: 5px;
+margin-right: 5px;
+width:auto;
+}
