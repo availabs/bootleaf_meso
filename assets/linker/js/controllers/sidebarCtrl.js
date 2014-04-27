@@ -105,6 +105,13 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
     
   }
 
+  $scope.isLeaflet = function(layer){
+    if(layer.type == 'leaflet'){
+      return layer.selector;
+    }
+    return "";
+  }
+
   $scope.isVisible = function(layer){
     if(layer.visible){
       return "active";

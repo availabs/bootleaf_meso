@@ -22,14 +22,15 @@ var mesonet = {
     var rainfall = L.tileLayer('http://vis.availabs.org/mesonet/data/tiles/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 10,tms: true,opacity:0.5});
     var floodplains = L.tileLayer('http://vis.availabs.org/mesonet/data/flood_planes/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 12,tms: true,opacity:1});
     
+    //var rainfall_layer = L.layerGroup(rainfall);
+
     mesonet.map = L.map("map", {
           center: [42.76314586689494,-74.7509765625],
           zoom: 7,
       layers: [mapquestOSM]
     });
 
-    //rainfall.addTo(mesonet.map);
-    //floodplains.addTo(mesonet.map);
+   
 
     var baseLayers = {
       "Street Map": mapquestOSM,
@@ -45,6 +46,9 @@ var mesonet = {
       collapsed: true
     }).addTo(mesonet.map);
 
+    
+    //floodplains.addTo(mesonet.map);
+
      var sidebarLoaded = false; 
     $("#layers").click(function(){
       if(!sidebarLoaded){
@@ -57,8 +61,14 @@ var mesonet = {
       }
     });
 
+/*    $("#rainfall").click(function(p){
+      console.log(map.rainfall);
+      //  mesonet.map.addLayer(rainfall);
+      //L.tileLayer.bringToFront(map.rainfall);
+      $('.leaflet-tile-pane .leaflet-layer').last().toggle();
+    });
+*/
     $( "#zoom" ).click(function(map) {
-
       mesonet.map.setView([42.76314586689494,-74.7509765625], 7);
     });
       /* Highlight search box text on click */
