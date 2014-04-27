@@ -57,10 +57,9 @@ var mesonet = {
       }
     });
 
-    $( "#zoom" ).click(function() {
-      var bounds = rainfall.getBounds();
-      //console.log(rainfall.getBounds());
-      map.fitBounds(bou);
+    $( "#zoom" ).click(function(map) {
+
+      mesonet.map.setView([42.76314586689494,-74.7509765625], 7);
     });
       /* Highlight search box text on click */
     /*
