@@ -165,3 +165,23 @@ margin-right: 5px;
 width:auto !important;
 }
 
+.navbar-collapse.collapsing {
+overflow-y: hidden;
+background-color: white;
+}
+
+.navbar-collapse.in{
+overflow-y: hidden;
+background-color: white;
+}
+
+a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.active:focus {
+z-index: 2;
+color: #fff;
+background-color: #333;
+border-color: #333;
+}
+
+.leaflet-container a {
+color: black;
+}

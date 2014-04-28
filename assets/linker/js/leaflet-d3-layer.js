@@ -35,7 +35,7 @@
       feature = join.enter().append("path");
       
       if(typeof layer_options.mouseover !='undefined'){
-        console.log(layer_options);
+        //console.log(layer_options);
         feature.on("mouseover", function(d) {
           if(typeof layer_options.mouseover.style != 'undefined'){
             for(key in layer_options.mouseover.style){
@@ -45,7 +45,11 @@
           if(typeof layer_options.mouseover.info != 'undefined'){
             var text = "<p>";
             layer_options.mouseover.info.forEach(function(option){
-              text += ""+ option.name+d.properties[option.prop]+"<br>";  
+              if(typeof layer_options.mouseover.info.prop !=undefined){
+              text += ""+ option.name+d.properties[option.prop]+"<br>"; 
+              }else{
+                text += "No Information Available"+"<br>"; 
+              } 
             })
             text+="</p>";
             $("#info").show().html(text);

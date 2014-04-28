@@ -5,25 +5,21 @@ var mesonet = {
     /* Basemap Layers */
     var mapquestOSM = L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0po4e8k/{z}/{x}/{y}.png");
      
-    var mapquestOAM = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
-      maxZoom: 18,
-      subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-      attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
+    var mapquestOAM = L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0pml9h7/{z}/{x}/{y}.png", {
+      maxZoom: 20,
+      //subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
     });
-    var mapquestHYB = L.layerGroup([L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
-      maxZoom: 18,
-      subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"]
+    var mapquestHYB = L.layerGroup([L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0pml9h7/{z}/{x}/{y}.png", {
+      maxZoom: 20,
+      //subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"]
     }), L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/hyb/{z}/{x}/{y}.png", {
       maxZoom: 19,
       subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-      attribution: 'Labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
     })]);
 
     var rainfall = L.tileLayer('http://vis.availabs.org/mesonet/data/tiles/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 10,tms: true,opacity:0.5});
     var floodplains = L.tileLayer('http://vis.availabs.org/mesonet/data/flood_planes/{z}/{x}/{y}.png', {minZoom: 5, maxZoom: 12,tms: true,opacity:1});
     
-    //var rainfall_layer = L.layerGroup(rainfall);
-
     mesonet.map = L.map("map", {
           center: [42.76314586689494,-74.7509765625],
           zoom: 7,
@@ -39,15 +35,20 @@ var mesonet = {
       "Rainfall": rainfall,
       "Flood Plains": floodplains
     };
+    
+    var overlayMaps = {
+     "<span class='rainfall'>Rainfall</span>":rainfall,
+      "<span class='floodplains'>Flood Hazard Zones</span>":floodplains
 
+    };
     
     
-    var layerControl = L.control.layers(baseLayers, {}, {
+    var layerControl = L.control.layers(baseLayers, overlayMaps, {
       collapsed: true
     }).addTo(mesonet.map);
 
-    
-    //floodplains.addTo(mesonet.map);
+    L.control.scale().addTo(mesonet.map);
+       
 
      var sidebarLoaded = false; 
     $("#layers").click(function(){
@@ -60,12 +61,10 @@ var mesonet = {
         mesonet.sidebar.toggle();
       }
     });
-
-/*    $("#rainfall").click(function(p){
-      console.log(map.rainfall);
-      //  mesonet.map.addLayer(rainfall);
-      //L.tileLayer.bringToFront(map.rainfall);
-      $('.leaflet-tile-pane .leaflet-layer').last().toggle();
+/*
+    $("#rainfall").click(function(map){
+      
+      $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',4).addClass('rainfall').toggle();
     });
 */
     $( "#zoom" ).click(function(map) {
