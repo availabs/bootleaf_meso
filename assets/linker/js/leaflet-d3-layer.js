@@ -45,10 +45,11 @@
           if(typeof layer_options.mouseover.info != 'undefined'){
             var text = "<p>";
             layer_options.mouseover.info.forEach(function(option){
-              if(typeof layer_options.mouseover.info.prop !=undefined){
+              if(typeof layer_options.mouseover.info.prop ==undefined){
+              console.log("undefined");
               text += ""+ option.name+d.properties[option.prop]+"<br>"; 
               }else{
-                text += "No Information Available"+"<br>"; 
+                text += ""+ option.name+"<br>"; 
               } 
             })
             text+="</p>";

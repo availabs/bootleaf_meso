@@ -28,7 +28,8 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
           {name:'Canal Water Level Gauges',selector:'water', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#FF9500'},mouseover:{info:[{name:"Gauge ID: ",prop:"GAGE"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
           {name:'Canal Corp Structures',selector:'cc_struct', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#000000'},mouseover:{info:[{name:"Structure Name: ",prop:"STRUCT_NAM"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
           {name:'Fiber Optic Access Points',selector:'fiber_access', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#77FFC6'},mouseover:{info:[{name:"Fiber Access Point: ",prop:"OBJECTID"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
-          {name:'Canal Corp Land',selector:'cc_land', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',fill:'#ff0'},mouseover:{info:[{name:"Canal Corporaton Land",prop:""}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}}
+          {name:'Thruway Land',selector:'thru_land', loaded:false, visible:false, type:'d3',style:{opacity:'0.5',cursor:'pointer',fill:'#ff0', stroke:'black','stroke-width':'1px'},mouseover:{info:[{name:"Thruway Land",prop:""}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
+          {name:'Canal Corporation Land',selector:'cc_land', loaded:false, visible:false, type:'d3',style:{opacity:'0.5',cursor:'pointer',fill:'#FF9500', stroke:'black','stroke-width':'1px'},mouseover:{info:[{name:"Canal Corporaton Land",prop:""}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}}
 
         ]
     },
