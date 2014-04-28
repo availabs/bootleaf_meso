@@ -54,12 +54,12 @@ head
         a.navbar-brand(href='#') NY MESONET
       .navbar-collapse.collapse
         form.navbar-form.navbar-right(role='search')
-          .form-group.has-feedback.navbar-right
+          .form-group.has-feedback.navbar-right(ng-show="user.accessLevel >= 2")
             input#searchbox.form-control(type='text', placeholder='Search')
             span#searchicon.fa.fa-search.form-control-feedback
         ul.nav.navbar-nav.navbar-right
           li.dropdown
-            a#legendDrop.dropdown-toggle(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
+            a#legendDrop.dropdown-toggle(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-show="user.accessLevel >= 0")
               i.fa.fa-picture-o(style='color: black;')
               |  Legend
               b.caret
@@ -135,11 +135,11 @@ head
                   i.fa.fa-download
                   |  Export Stations
           li
-            a#layers(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in')
+            a#layers(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-show="user.accessLevel >= 0")
               i.fa.fa-list(style='color: black;')
               |  Layers
           li
-            a(ng-click="saveChanges()", data-target='.navbar-collapse.in',style='color: black;')
+            a(ng-click="saveChanges()", data-target='.navbar-collapse.in',style='color: black;', ng-show="user.accessLevel >= 0")
               i.fa.fa-floppy-o(style='color: black;')
               |  Save Changes
     #map
