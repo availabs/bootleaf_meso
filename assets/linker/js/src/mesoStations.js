@@ -19,7 +19,7 @@ mesoStation = {
 	other_sectorsIcon:L.icon({iconUrl: '/linker/js/images/beneficial.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	snowIcon:L.icon({iconUrl: '/linker/js/images/snowy.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	userIcon:L.icon({iconUrl: '/linker/js/images/imp_forecasting.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
-	drawStations : function() {
+	drawStations : function(visability) {
 		
 		if(mesoStation.markers.length > 0) { mesoStation.clearMarkers(); }
 
@@ -98,16 +98,15 @@ mesoStation = {
 			mesoStation.markers.push(station);
 	
 		});
-		mesoStation.setStations();
+		mesoStation.setStations(visability);
 	},
-	setStations : function() {
+	setStations : function(visability) {
 		mesoStation.markers.forEach(function(station,i){
 			station.addTo(mesonet.map);
 		});
-		$('img[alt="primary"]').hide();
-		$('img[alt="main"]').hide();
-		$('img[alt="user"]').hide();
-		
+		if(!visability.primary) $('img[alt="primary"]').hide();
+		if(!visability.main) $('img[alt="main"]').hide();
+		if(!visability.user) $('img[alt="user"]').hide();
 	},
 	setDraggable : function(true_or_false){
 		mesoStation.draggable = true_or_false;
@@ -120,6 +119,9 @@ mesoStation = {
 			}
 		});
 	},
+
+	
+
 	clearMarkers : function(){
 		mesoStation.markers.forEach(function(m){
 			mesonet.map.removeLayer(m);

@@ -32,23 +32,29 @@ var mesonet = {
       "Street Map": mapquestOSM,
       "Aerial Imagery": mapquestOAM,
       "Imagery with Streets": mapquestHYB,
-      "Rainfall": rainfall,
-      "Flood Plains": floodplains
+      //"Rainfall": rainfall,
+      //"Flood Plains": floodplains
     };
     
-    var overlayMaps = {
-     "<span class='rainfall'>Rainfall</span>":rainfall,
-      "<span class='floodplains'>Flood Hazard Zones</span>":floodplains
+   
+    /*var overlayMaps = {
+    "<span class='rainfall'>Rainfall</span>":rainfall,
+    "<span class='floodplains'>Flood Hazard Zones</span>":floodplains
 
     };
+    */
     
-    
-    var layerControl = L.control.layers(baseLayers, overlayMaps, {
+    var layerControl = L.control.layers(baseLayers, {}, {
       collapsed: true
     }).addTo(mesonet.map);
 
+    
     L.control.scale().addTo(mesonet.map);
-       
+   
+    mesonet.map.addLayer(rainfall);
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',4).attr('id','rainfall').hide();
+    mesonet.map.addLayer(floodplains);
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',4).attr('id','floodplain').hide();   
 
      var sidebarLoaded = false; 
     $("#layers").click(function(){
@@ -61,12 +67,9 @@ var mesonet = {
         mesonet.sidebar.toggle();
       }
     });
-/*
-    $("#rainfall").click(function(map){
-      
-      $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',4).addClass('rainfall').toggle();
-    });
-*/
+
+   
+
     $( "#zoom" ).click(function(map) {
       mesonet.map.setView([42.76314586689494,-74.7509765625], 7);
     });
@@ -75,6 +78,8 @@ var mesonet = {
     $("#searchbox").click(function () {
       $(this).select();
     });*/
+   
+
     popup.init();
     /* Placeholder hack for IE */
     if (navigator.appName == "Microsoft Internet Explorer") {
@@ -92,6 +97,7 @@ var mesonet = {
     }
   }
 }
+
 
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------

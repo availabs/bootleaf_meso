@@ -137,6 +137,7 @@ a.accordion-toggle.ng-binding {
 color: white;
 
 }
+
 .panel-group {
 margin-bottom: 5px;
 padding-right: 5px;
@@ -184,4 +185,8 @@ border-color: #333;
 
 .leaflet-container a {
 color: black;
+}
+
+span#county_legend {
+font-size: 11px;
 }

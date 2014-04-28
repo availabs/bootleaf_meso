@@ -28,6 +28,7 @@
         this.geojson = root.topojson.feature(this.geojson, this.geojson.objects.features);
        
       }
+     
       paths = g.selectAll("path");
       join = paths.data(this.geojson.features, function(d) {
         return d.id;
@@ -35,23 +36,29 @@
       feature = join.enter().append("path");
       
       if(typeof layer_options.mouseover !='undefined'){
-        //console.log(layer_options);
+       
         feature.on("mouseover", function(d) {
+         
           if(typeof layer_options.mouseover.style != 'undefined'){
             for(key in layer_options.mouseover.style){
               $(this).css(key,layer_options.mouseover.style[key]);
             }
           }
+          
           if(typeof layer_options.mouseover.info != 'undefined'){
+            
             var text = "<p>";
             layer_options.mouseover.info.forEach(function(option){
-              if(typeof layer_options.mouseover.info.prop ==undefined){
-              console.log("undefined");
-              text += ""+ option.name+d.properties[option.prop]+"<br>"; 
+              if(typeof option.prop !== 'undefined'){
+              //console.log("undefined");
+              text += option.name+d.properties[option.prop]+"<br>"; 
+          
               }else{
-                text += ""+ option.name+"<br>"; 
+                text += ""+ option.name+"<br>";
+                console.log('nah bro') ;
               } 
             })
+          
             text+="</p>";
             $("#info").show().html(text);
           }
@@ -80,6 +87,17 @@
           return d.properties[styler];
         });
       }
+      
+     if(typeof layer_options.choropleth != 'undefined'){
+        //console.log('bob ross',layer_options.choropleth);
+        
+
+        feature.attr('fill',function(d){
+          return layer_options.choropleth.scale(d.properties[layer_options.choropleth.key]*1)
+        
+        })
+      }
+
       project = function(d3pnt) {
         var geoPnt, pixelPnt;
         geoPnt = new L.LatLng(d3pnt[1], d3pnt[0]);

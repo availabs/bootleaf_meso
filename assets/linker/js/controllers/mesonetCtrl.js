@@ -11,6 +11,10 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
   $scope.editable = false ;
   $scope.saveChanged = '';
   $scope.userStationsLoaded = false;
+  $scope.vis = {};
+  $scope.vis.primary= false;
+  $scope.vis.main = false;
+  $scope.vis.user = false;
 
   $scope.$on('sailsSocket:connect', function(ev, data) {
     // Get Session Status
@@ -32,7 +36,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 							
 							mesoStation.stations = $scope.stations;
 							
-							mesoStation.drawStations();
+							mesoStation.drawStations($scope.vis);
 							mesoStation.setDraggable(false);
 							$scope.markers = mesoStation.markers;
 							
@@ -99,7 +103,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 									actualStations.forEach(function(d){
 										$scope.stations.push(d);
 									});
-									mesoStation.drawStations();
+									mesoStation.drawStations($scope.vis);
 									if(!$scope.userStationsLoaded){
 										userStationLegend();
 										$scope.userStationsLoaded = true;
@@ -113,7 +117,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 							
 
 						}else{
-							mesoStation.drawStations();
+							mesoStation.drawStations($scope.vis);
 							mesoStation.setDraggable($scope.editable);
 							$scope.markers = mesoStation.markers;
 							$scope.bindMarkers($scope.editable);
@@ -252,11 +256,16 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	// };
 	
 	
+    
 
 	$scope.saveChanges = function(){
+		$scope.vis.primary= $('img[alt="primary"]').is(':visible');
+		$scope.vis.main = $('img[alt="main"]').is(':visible');
+		$scope.vis.user = $('img[alt="user"]').is(':visible');
+
 		if($scope.user.accessLevel == 1){
 			//console.log($scope.stations);
-			var removeUs = [];
+						var removeUs = [];
 			$scope.stations.forEach(function(station,index){
 				if(station.type == 'user'){
 					//console.log(index);
@@ -575,5 +584,6 @@ function LoginModalCtrl($scope, $modalInstance,sailsSocket) {
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+
  
 }
