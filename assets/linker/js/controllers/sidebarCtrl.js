@@ -151,6 +151,28 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
     $('#legend-list').append(legendText);
   }
 
+
+
+  $scope.hideLayers=function(Layers){
+    
+    currentLayer = $scope.Layers;
+    currentLayer.forEach(function(currentLayer){
+      currentLayer.layers.forEach(function(layer){
+        var typeSelect = "#";
+        if(layer.type == 'leaflet'){typeSelect = '';}
+        if(layer.visible){
+          $(typeSelect+ layer.selector).hide();
+          $('#'+ layer.selector+'_legend').hide();
+          layer.visible=false;
+        }
+      });
+    });
+   // mesonet.sidebar.toggle();
+  }
+
+    
+
+
   $scope.isVisible = function(layer){
     if(layer.visible){
       return "active";

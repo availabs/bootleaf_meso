@@ -1,7 +1,9 @@
 h3(style='margin-top:10px;') Map Layers
+button.btn.btn-primary(type='button', ng-model='singleModel', ng-click='hideLayers()') Hide Layers
 accordion(close-others='oneAtATime')
    accordion-group(heading='{{group.name}}', ng-repeat='group in Layers')
     .list-group(style='color:black;')
       a.list-group-item(ng-class='isVisible(layer)', ng-repeat='layer in group.layers', ng-click='layerClick(layer)') {{layer.name}}
+
 
    

@@ -197,3 +197,16 @@ content: "\f039";
 font-size:'4em';  
 }
 
+.btn-primary {
+color: black;
+background-color: white;
+float: right;
+position: absolute;
+top: 15;
+right: 40;
+border-width:0px;
+}
+
+.btn-primary:hover {
+  background-color:rgba(131, 169, 211, 0.8) ;
+}

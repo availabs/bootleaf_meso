@@ -116,6 +116,10 @@ head
                 a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="addStation()", ng-show="loggedIn")
                   i.fa.fa-picture-o
                   |  Add Station
+              li
+                a#hide_layers(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-show="loggedIn")
+                  i.fa.fa-picture-o
+                  |  Hide All Layers
               li.divider.hidden-xs
               li
                 a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="openModal()", ng-hide="loggedIn")

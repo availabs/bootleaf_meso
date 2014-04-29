@@ -68,8 +68,8 @@ var mesonet = {
       }
     });
 
-   
 
+    
     $( "#zoom" ).click(function(map) {
       mesonet.map.setView([42.76314586689494,-74.7509765625], 7);
     });
