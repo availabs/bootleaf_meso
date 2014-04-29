@@ -64,7 +64,7 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
 
   ];
 
-
+  
   $scope.oneAtATime = false;
   
   $scope.layerClick=function(layer){

@@ -201,7 +201,7 @@ content: "\f039";
 font-size:'4em';  
 }
 
-.btn-primary {
+.btn-special {
 color: black;
 background-color: white;
 float: right;
@@ -212,19 +212,19 @@ border-width:0px;
 border-color:rgba(131, 169, 211, 0.8) ;
 }
 
-.btn-primary:hover {
+.btn-special:hover {
   background-color:rgba(131, 169, 211, 0.8) ;
   border-color:rgba(131, 169, 211, 0.8) ;
   border-width:0px;
 }
 
-.btn-primary:active {
+.btn-special:active {
   background-color:rgba(131, 169, 211, 0.8) ;
   border-width:0px;
   border-color:rgba(131, 169, 211, 0.8) ;
 }
 
-.btn-primary:focus {
+.btn-special:focus {
   background-color:rgba(131, 169, 211, 0.8) ;
   border-width:0px;
   border-color:rgba(131, 169, 211, 0.8) ;
