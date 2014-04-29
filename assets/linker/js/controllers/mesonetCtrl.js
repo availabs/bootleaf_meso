@@ -1,7 +1,19 @@
 /*jslint node: true */
 app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, $log, $compile, $timeout, $http){
+
   mesonet.init();
   $('#main-nav').css('display','block');
+/*
+  //-------------------------------------------------
+  //Typeahead
+  //-------------------------------------------------
+  		$scope.selected = undefined;
+  		$scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+		  // Any function returning a promise object can be used to load values asynchronously
+  		
+		 
+	//----------------------------------------------------*/
+ 
   var elevator = new google.maps.ElevationService();
   $scope.loggedIn = false;
   $scope.user = {};
@@ -488,6 +500,8 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 					$scope.stations[i][key] = newInfo[0][key];
 				}
 			})
+
+		
 
 	};
   

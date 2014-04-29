@@ -42,6 +42,7 @@ head
     script(type="text/javascript", src="/linker/js/services/sailsSocket.js")
     script(type="text/javascript", src="/linker/js/controllers/mesonetCtrl.js")
     script(type="text/javascript", src="/linker/js/controllers/sidebarCtrl.js")
+    
 
 
   body(ng-controller="MesonetCtrl")
@@ -54,8 +55,8 @@ head
         a.navbar-brand(href='#') NY MESONET
       .navbar-collapse.collapse
         form.navbar-form.navbar-right(role='search')
-          .form-group.has-feedback.navbar-right(ng-show="user.accessLevel >= 2")
-            input#searchbox.form-control(type='text', placeholder='Search')
+          .form-group.has-feedback.navbar-right(ng-show='user.accessLevel >2')
+            input#searchbox.form-control(type='text', ng-model='selected',typeahead="station for station in stations | filter:$viewValue | limitTo:8")
             span#searchicon.fa.fa-search.form-control-feedback
         ul.nav.navbar-nav.navbar-right
           li.dropdown
@@ -245,6 +246,4 @@ head
           div Connecting to Mesonet server
 
 
-  script(src='/linker/typeahead/typeahead.bundle.min.js')
-    
-   
+
