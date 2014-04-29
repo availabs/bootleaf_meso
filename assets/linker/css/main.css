@@ -138,9 +138,13 @@ color: white;
 
 }
 
+div.panel-group {
+margin-top: 41;
+}
 .panel-group {
 margin-bottom: 5px;
 padding-right: 5px;
+
 }
 .close{right:12px;}
 
@@ -201,12 +205,27 @@ font-size:'4em';
 color: black;
 background-color: white;
 float: right;
-position: absolute;
-top: 15;
-right: 40;
+position: relative;
+top: -38;
+right: 15;
 border-width:0px;
+border-color:rgba(131, 169, 211, 0.8) ;
 }
 
 .btn-primary:hover {
   background-color:rgba(131, 169, 211, 0.8) ;
+  border-color:rgba(131, 169, 211, 0.8) ;
+  border-width:0px;
+}
+
+.btn-primary:active {
+  background-color:rgba(131, 169, 211, 0.8) ;
+  border-width:0px;
+  border-color:rgba(131, 169, 211, 0.8) ;
+}
+
+.btn-primary:focus {
+  background-color:rgba(131, 169, 211, 0.8) ;
+  border-width:0px;
+  border-color:rgba(131, 169, 211, 0.8) ;
 }
