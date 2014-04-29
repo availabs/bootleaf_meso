@@ -98,7 +98,12 @@ head
                   <hr>
         ul.nav.navbar-nav
           li.dropdown
-            a#toolsDrop.dropdown-toggle(style='color:black;',href='#', role='button', data-toggle='dropdown')
+            a#login.dropdown-toggle(style='color:black;',href='#', role='button', ng-click="openModal()", ng-show="!loggedIn")
+              i.fa.fa-user(style='color: black;')
+              |  Login
+              b.caret
+          li.dropdown
+            a#toolsDrop.dropdown-toggle(style='color:black;',href='#', role='button', data-toggle='dropdown', ng-show="loggedIn")
               i.fa.fa-globe(style='color: black;')
               |  Tools
               b.caret
