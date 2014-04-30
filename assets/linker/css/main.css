@@ -216,16 +216,19 @@ border-color:rgba(86, 131, 180, 1);
   background-color:rgba(86, 131, 180, 1);
   border-color:rgba(86, 131, 180, 1);
   border-width:0px;
+  color:white;
 }
 
 .btn-special:active {
   background-color:rgba(86, 131, 180, 1);
   border-width:0px;
   border-color:rgba(86, 131, 180, 1);
+  color:white;
 }
 
 .btn-special:focus {
   background-color:rgba(86, 131, 180, 1);
   border-width:0px;
   border-color:rgba(86, 131, 180, 1);
+  color:white;
 }
