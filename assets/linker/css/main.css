@@ -139,7 +139,7 @@ color: white;
 }
 
 div.panel-group {
-margin-top: 41;
+margin-top: 42;
 }
 .panel-group {
 margin-bottom: 5px;
@@ -159,7 +159,7 @@ padding-left: 0;
 
 .panel-default>.panel-heading {
 color: #333;
-background-color: rgba(131, 169, 211, 0.8);
+background-color: rgba(86, 131, 180, 1)
 }
 
 .leaflet-popup-content {
@@ -209,23 +209,23 @@ position: relative;
 top: -38;
 right: 15;
 border-width:0px;
-border-color:rgba(131, 169, 211, 0.8) ;
+border-color:rgba(86, 131, 180, 1);
 }
 
 .btn-special:hover {
-  background-color:rgba(131, 169, 211, 0.8) ;
-  border-color:rgba(131, 169, 211, 0.8) ;
+  background-color:rgba(86, 131, 180, 1);
+  border-color:rgba(86, 131, 180, 1);
   border-width:0px;
 }
 
 .btn-special:active {
-  background-color:rgba(131, 169, 211, 0.8) ;
+  background-color:rgba(86, 131, 180, 1);
   border-width:0px;
-  border-color:rgba(131, 169, 211, 0.8) ;
+  border-color:rgba(86, 131, 180, 1);
 }
 
 .btn-special:focus {
-  background-color:rgba(131, 169, 211, 0.8) ;
+  background-color:rgba(86, 131, 180, 1);
   border-width:0px;
-  border-color:rgba(131, 169, 211, 0.8) ;
+  border-color:rgba(86, 131, 180, 1);
 }

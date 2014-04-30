@@ -116,6 +116,10 @@ head
                 a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="addStation()", ng-show="loggedIn")
                   i.fa.fa-picture-o
                   |  Add Station
+              li
+                a(href='/admin/users', ng-show="user.accessLevel == 1",data-target='.navbar-collapse.in')
+                  i.fa.fa-download
+                  |   Admin Panel
               li.divider.hidden-xs
               li
                 a(style='color:black;',href='#', data-toggle='collapse', data-target='.navbar-collapse.in', ng-click="openModal()", ng-hide="loggedIn")
@@ -147,6 +151,10 @@ head
             a(ng-click="saveChanges()", data-target='.navbar-collapse.in',style='color: black;', ng-show="user.accessLevel >= 0")
               i.fa.fa-floppy-o(style='color: black;')
               |  Save Changes
+          li.user-info(ng-show="loggedIn", style="margin-top:15px;") Logged in as 
+              strong {{user.username}}
+          span(style='float:right;margin-top:15px;margin-left:5px;') {{saveChanged}}
+
     #map
     #sidebar(ng-controller="sidebarCtrl")
       include partials/sidebar
