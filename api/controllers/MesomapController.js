@@ -19,11 +19,15 @@ module.exports = {
     
 
   allStations: function (req,res) {
-    User.find({accessLevel:0}).done(function(err, users){
+    var current_user = req.param('currentUser');
+    User.find()
+    .where({ accessLevel: { '<': 2 }})
+    .done(function(err, users){
       if (err) console.log(err);
       var output=[];
     users.forEach(function(d){
-      if(d.stations){
+      if(d.stations && d.id != current_user){
+       // console.log(d.username);
         var info = {stations:d.stations,username:d.username}
         output.push(info);
       }

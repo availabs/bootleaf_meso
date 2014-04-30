@@ -19,6 +19,7 @@ mesoStation = {
 	other_sectorsIcon:L.icon({iconUrl: '/linker/js/images/beneficial.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	snowIcon:L.icon({iconUrl: '/linker/js/images/snowy.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	userIcon:L.icon({iconUrl: '/linker/js/images/imp_forecasting.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
+	userIconL2:L.icon({iconUrl: '/linker/js/images/anemometer_g1_1.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	drawStations : function(visability) {
 		
 		if(mesoStation.markers.length > 0) { mesoStation.clearMarkers(); }
@@ -59,6 +60,10 @@ mesoStation = {
 				case 'user':
 					chosenIcon = mesoStation.userIcon;
 					selectionType = 'user';
+					break;
+				case 'userL2':
+					chosenIcon = mesoStation.userIconL2;
+					selectionType = 'userL2';
 					break;
 				case 'primary_Profiler':
 					chosenIcon = mesoStation.pprofIcon;
@@ -107,6 +112,7 @@ mesoStation = {
 		if(!visability.primary) $('img[alt="primary"]').hide();
 		if(!visability.main) $('img[alt="main"]').hide();
 		if(!visability.user) $('img[alt="user"]').hide();
+		if(!visability.user) $('img[alt="userL2"]').hide();
 	},
 	setDraggable : function(true_or_false){
 		mesoStation.draggable = true_or_false;

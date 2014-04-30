@@ -232,3 +232,16 @@ border-color:rgba(86, 131, 180, 1);
   border-color:rgba(86, 131, 180, 1);
   color:white;
 }
+
+.leaflet-container a.leaflet-popup-close-button {
+position: absolute;
+top: 2;
+right: 5;
+padding: 4px 4px 0 0;
+text-align: center;
+font: 16px/14px Tahoma, Verdana, sans-serif;
+color: white;
+text-decoration: none;
+font-weight: bold;
+background: transparent;
+}

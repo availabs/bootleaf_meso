@@ -39,7 +39,8 @@ module.exports.routes = {
     view: 'main/rest'
   },
   '/todos': 'MainController.todos',
-  '/':{
+  
+  '/oldversion':{
     view: 'mesonet/index'
   },
   '/mesomap/userStations':{
@@ -57,7 +58,7 @@ module.exports.routes = {
     action:'getLayer'
   },
 
-  '/bootleaf':{
+  '/':{
     view: 'mesonet/bootleaf'
   },
   

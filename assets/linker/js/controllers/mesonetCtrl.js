@@ -1,54 +1,39 @@
 /*jslint node: true */
 app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, $log, $compile, $timeout, $http){
-  mesonet.init();
-  $('#main-nav').css('display','block');
-  var elevator = new google.maps.ElevationService();
-  $scope.loggedIn = false;
-  $scope.user = {};
-  $scope.stations = [];
-  $scope.mesoMap = {};
-  $scope.addMarker = false;
-  $scope.editable = false ;
-  $scope.saveChanged = '';
-  $scope.userStationsLoaded = false;
-  $scope.vis = {};
-  $scope.vis.primary= false;
-  $scope.vis.main = false;
-  $scope.vis.user = false;
+	mesonet.init();
+	$('#main-nav').css('display','block');
+	var elevator = new google.maps.ElevationService();
+	$scope.loggedIn = false;
+	$scope.user = {};
+	$scope.stations = [];
+	$scope.mesoMap = {};
+	$scope.addMarker = false;
+	$scope.editable = false ;
+	$scope.saveChanged = '';
+	$scope.userStationsLoaded = false;
+	$scope.vis = {};
+	$scope.vis.primary= false;
+	$scope.vis.main = false;
+	$scope.vis.user = false;
+	$scope.vis.userL2 = false;
 
-  $scope.$on('sailsSocket:connect', function(ev, data) {
+    $scope.$on('sailsSocket:connect', function(ev, data) {
     // Get Session Status
     sailsSocket.get(
-      '/admin/getStatus', {},
-      function(response) {
-				if(response.status == 'loggedIn'){
-					$scope.loggedIn = true;
-					$scope.user = response.userInfo;
-					$scope.getUserStations();
-
-				}else{
-					sailsSocket.get(
-					'/mesoMap/4',{},
-					function(response){
-							
-							$scope.mesoMap = response.id;
-							$scope.stations = response.mapData;
-							
-							mesoStation.stations = $scope.stations;
-							
-							mesoStation.drawStations($scope.vis);
-							mesoStation.setDraggable(false);
-							$scope.markers = mesoStation.markers;
-							
-							$scope.bindMarkers($scope.editable);
-							
-				});
+        '/admin/getStatus', {},
+        function(response) {
+			if(response.status == 'loggedIn'){
+				$scope.loggedIn = true;
+				$scope.user = response.userInfo;
+				$scope.getUserStations();
+			}else{
+				console.log('not logged in, do nothing');
 			}
+    	});
     });
-  });
 
   var userStationLegend = function(){
-  	$('img[alt="user"]').hide();
+  	$('img[alt="user"]_legend').hide();
   	$('#economic').append('<li><a style="height:35px; cursor:pointer;" id="users" class="secret">User Stations</a></li>');
   	$('#economic li a#users').on('click',function(){
 		if($(this).hasClass('active')){
@@ -67,65 +52,73 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	});
 	
   }
+  
   $scope.getUserStations = function(){
 		if($scope.user.mapId != -1 && $scope.user.mapId !== null){
 			sailsSocket.get(
 				'/mesoMap/4',{},
 				function(response){
-						$scope.mesoMap = response;
-						$scope.stations = response.mapData;
-						//console.log('getUserStations',$scope.user.stations);
-						if($scope.user.stations){
-							if($scope.user.stations.length > 0){
-								$scope.user.stations.forEach(function(station){
-									$scope.stations.push(station);
-								});
-							}
+					$scope.mesoMap = response;
+					$scope.stations = response.mapData;
+					//console.log('pre user station stations', response.mapData);
+					if($scope.user.stations){
+						if($scope.user.stations.length > 0){
+							$scope.user.stations.forEach(function(station){
+								$scope.stations.push(station);
+							});
 						}
-						mesoStation.stations = $scope.stations;
-						
-						
-						if($scope.user.accessLevel == 1) {
-							$scope.editable = true;
-							sailsSocket.get(
-								'/mesomap/userStations',{},
-								function(response){
-									var actualStations = [];
-									response.forEach(function(userStations){
-										if(userStations.stations.length >= 1){
-											userStations.stations.forEach(function(station){
-												station.username = userStations.username;
-												station.name = station.id + " " +userStations.username;
-												actualStations.push(station);
-											})
-										}
-									});
-									actualStations.forEach(function(d){
-										$scope.stations.push(d);
-									});
-									mesoStation.drawStations($scope.vis);
-									if(!$scope.userStationsLoaded){
-										userStationLegend();
-										$scope.userStationsLoaded = true;
-									}
-									mesoStation.setDraggable($scope.editable);
-									$scope.markers = mesoStation.markers;
-									$scope.bindMarkers($scope.editable);
-								}
-							);
-							
-							
+					}
+					mesoStation.stations = $scope.stations;
+											
+					if($scope.user.accessLevel >= 1) {
+						//IF ADMIN OR COMMITTE MEMBER
+						$scope.editable = false;
+						if($scope.user.accessLevel == 2) {
+							$scope.editable = true; //ONLY ADMINS CAN EDIT STATIONS
+ 						}
 
-						}else{
-							mesoStation.drawStations($scope.vis);
-							mesoStation.setDraggable($scope.editable);
-							$scope.markers = mesoStation.markers;
-							$scope.bindMarkers($scope.editable);
-						}
+						sailsSocket.get(
+							'/mesomap/userStations',{currentUser:$scope.user.id},
+							function(response){
+								//console.log('These are the user stations',response);
+								var actualStations = [];
+								response.forEach(function(userStations){
+									if(userStations.stations.length >= 1){
+										userStations.stations.forEach(function(station){
+											station.username = userStations.username;
+											station.name = station.id + " " +userStations.username;
+											actualStations.push(station);
+										})
+									}
+								});
+								actualStations.forEach(function(d){
+									$scope.stations.push(d);
+								});
+								mesoStation.drawStations($scope.vis);
+								// if(!$scope.userStationsLoaded){
+								// 	userStationLegend();
+								// 	$scope.userStationsLoaded = true;
+								// }
+								mesoStation.setDraggable($scope.editable);
+								$scope.markers = mesoStation.markers;
+								$scope.bindMarkers($scope.editable);
+							}
+						);
+						
+						
+
+					}else{
+						//We don't need to get user stations for lowly users
+						// just draw
+						mesoStation.drawStations($scope.vis);
+						mesoStation.setDraggable($scope.editable);
+						$scope.markers = mesoStation.markers;
+						$scope.bindMarkers($scope.editable);
+					}
 					
 			});
 		}else{
-			$scope.newMap();
+			console.error('error no map');
 		}
 	};
 
@@ -186,21 +179,25 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
     
 	mesonet.map.on('click',function(e){
 		if($scope.addMarker){
-			
 			var old_station =  $scope.stations[$scope.stations.length-1];
 			var new_station = {};
-			new_station.id = old_station.id + 1;
+			new_station.id = old_station.currentIndex + 1;
 			new_station.currentIndex = old_station.currentIndex+1;
 			new_station.name = "Station "+new_station.id;
 			new_station.lat = e.latlng.lat;
 			new_station.lng = e.latlng.lng;
-
 			var marker = {};
-			new_station.type='user';
-			marker = new L.marker(e.latlng, {icon:mesoStation.userIcon, draggable:true});	
-			
+			if($scope.user.accessLevel >= 1){
+				new_station.type='userL2';
+				marker = new L.marker(e.latlng, {icon:mesoStation.userIconL2, draggable:true});	
+			}else {
+				new_station.type='user';
+				marker = new L.marker(e.latlng, {icon:mesoStation.userIcon, draggable:true});
+			}
+				
 			mesonet.map.addLayer(marker);
 			new_station.marker = marker;
+			
 			$scope.stations.push(new_station);
 			////console.log('add station, last station',new_station)
 			if(!$scope.user.stations){
@@ -262,12 +259,13 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 		$scope.vis.primary= $('img[alt="primary"]').is(':visible');
 		$scope.vis.main = $('img[alt="main"]').is(':visible');
 		$scope.vis.user = $('img[alt="user"]').is(':visible');
-
-		if($scope.user.accessLevel == 1){
+		$scope.vis.userl2 = $('img[alt="user"]').is(':visible');
+		
+		if($scope.user.accessLevel >= 1){
 			//console.log($scope.stations);
-						var removeUs = [];
+			var removeUs = [];
 			$scope.stations.forEach(function(station,index){
-				if(station.type == 'user'){
+				if(station.type == 'user' || station.type == 'userL2' ){
 					//console.log(index);
 					removeUs.push(station);
 				}
@@ -275,10 +273,12 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 			//console.log($scope.stations.length-removeUs.length,removeUs.length);
 			$scope.stations.splice($scope.stations.length-removeUs.length,removeUs.length);
 			$scope.mesoMap.mapData = $scope.stations;
+
 			$scope.mesoMap.mapData.forEach(function(d){
 				d.marker = [];
 				delete d.comments;
 			});
+			//console.log($scope.mesoMap);
 			sailsSocket.put(
 				'/mesoMap/',$scope.mesoMap,
 				function(response){
@@ -289,10 +289,15 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	        },3000);
 			});
 		}
+		//END ADMIN SAVE
+
+		//console.log($scope.user.stations);
+		
 		$scope.user.stations.forEach(function(d){
 			d.marker = [];
 			delete d.comments;
 		});
+
 		sailsSocket.put(
 			'/user/'+$scope.user.id,$scope.user,
 			function(response){
@@ -300,35 +305,20 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 				sailsSocket.get('/user/'+$scope.user.id,function(response){
 					$scope.user.stations = response.stations;
 					$scope.getUserStations();	
-				})
+				});
+
 				$scope.saveChanged = 'Changes Saved';
 				$timeout(function(){
-           $scope.saveChanged = '';
-        },3000);
+		           $scope.saveChanged = '';
+		        },3000);
 				
-			});
+			}
+		);
 		
 					
 	};
 
-	$scope.newMap = function(){
-		sailsSocket.get(
-			'/mesoMap/1',{},
-			function(response){
-				
-				var newMap = {};
-				newMap.mapData = response.mapData;
-				newMap.userId = $scope.user.id;
-				sailsSocket.post('/mesoMap/',newMap,function(created){
-				
-					$scope.user.mapId = created.id;
-					sailsSocket.put('/user/'+$scope.user.id, $scope.user,
-						function(done) {
-							$scope.getUserStations();
-					});
-				});
-		});
-	};
+
 	$scope.$on('viewComment',function(evt,station_id){
 		var station_index = -1;
 		$scope.stations.forEach(function(d,i){
@@ -373,18 +363,19 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 		var deleted_station = $scope.stations.splice(delete_index,1)[0];
 
 		//console.log(deleted_station.type);
-		if(deleted_station.type == 'user'){
-    	//console.log('is user');
-    	if(deleted_station.comments && deleted_station.comments instanceof Array ){
-    		deleted_station.comments.forEach(function(comment){
-    			//console.log('comment');
-    			sailsSocket.delete('/comment/'+comment.id,function(response){
-    				//console.log('deleted comment'+comment.id,response);
-    			})
-    		})
-    	}
-    	var user_delete_index;
-    	$scope.user.stations.forEach(function(d,i){
+		if(deleted_station.type == 'user' || deleted_station.type == 'userL2'){
+	    	//console.log('is user');
+	    	if(deleted_station.comments && deleted_station.comments instanceof Array ){
+	    		deleted_station.comments.forEach(function(comment){
+	    			//console.log('comment');
+	    			sailsSocket.delete('/comment/'+comment.id,function(response){
+	    				//console.log('deleted comment'+comment.id,response);
+	    			})
+	    		})
+	    	}
+
+	    	var user_delete_index;
+	    	$scope.user.stations.forEach(function(d,i){
 				if(d.id == value){
 					user_delete_index = i;
 				}
@@ -397,8 +388,10 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 			});
 			$scope.saveChanges();
 			$timeout(function(){
-       $scope.getUserStations();
-    	},3000);
+	      	 	$scope.getUserStations();
+	    		},
+	    		3000
+	    	);
 		}		
 		$scope.bindMarkers($scope.editable);
 		$scope.saveChanged = 'Deleted Station '+value;
@@ -414,6 +407,10 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 		$scope.markers.forEach(function(marker,i){
 			var current_editable = editable;
 			if($scope.stations[i].type == 'user') { 
+				current_editable = true;
+				marker.dragging.enable();
+			}
+			if($scope.stations[i].type == 'userL2' && $scope.user.accessLevel >=1) { 
 				current_editable = true;
 				marker.dragging.enable();
 			}
@@ -434,7 +431,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 				if(!$scope.stations[i].elevation){
 					getElevation($scope.stations[i].lat, $scope.stations[i].lng,i);
 				}
-				if($scope.user.accessLevel == 1){
+				if($scope.user.accessLevel >= 1){
 					sailsSocket.get('/comment/find',{"where":{"mapId":$scope.mesoMap.id,"stationId":$scope.stations[i].id}},
 					function(response){
 						$scope.stations[i].comments = response;
@@ -451,14 +448,14 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	};
 
 	$scope.pullData = function(){
-		console.log("pulling data yo.");
+		
 		$scope.stations.forEach(function(station){
 			sailsSocket.post('/geodata/getInfo', {coords:[station.lat, station.lng]}, function(newInfo){
 				
 				for(key in newInfo[0]){
 					station[key] = newInfo[0][key]
 				}
-				console.log(station);
+				//console.log(station);
 			})
 		})
 	}
@@ -522,8 +519,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 				$scope.user = {};
 				$scope.loggedIn = false;
 				mesoStation.setDraggable(false);
-				$('#users').hide();
-				$('#layers_selector_user').hide();
+				
 			});
 	};
 	
