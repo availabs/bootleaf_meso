@@ -5,7 +5,7 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
    {
         name:"Stations", 
         layers:[
-          {selector:'img[alt="primary"]',name:'First Stations',loaded:true,visible:false,type:'leaflet'},
+          {selector:'img[alt="primary"]',name:'Phase 1 Stations',loaded:true,visible:false,type:'leaflet'},
           {selector:'img[alt="main"]',name:'Proposal Stations',loaded:true,visible:false,type:'leaflet'},
           {selector:'img[alt="user"]',name:'User Stations',loaded:true,visible:false,type:'leaflet'},
           {selector:'img[alt="userL2"]',name:'Committee Stations',loaded:true,visible:false,type:'leaflet'}
