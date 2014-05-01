@@ -7,7 +7,7 @@
  		<tr>
 			<td><strong>Station Id:</stong></td><td>{{station.id}}</td>
 		</tr>
-		<tr ng-hide="!editable || station.type == 'user'">
+		<tr ng-hide="!editable || station.type == 'user' || station.type == 'userL2'">
 	  	<td><strong>Station Type:</strong></td>
 			<td>
 		  	<select ng-model="station.type" ng-change='changeIcon(station)' style='padding:5px;background-color:#fff'>

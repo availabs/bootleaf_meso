@@ -108,7 +108,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 						
 
 					}else{
-						//We don't need to get user stations for lowly users
+						//We don't need to get user stations for standard users
 						// just draw
 						mesoStation.drawStations($scope.vis);
 						mesoStation.setDraggable($scope.editable);
@@ -119,6 +119,8 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 			});
 		}else{
 			console.error('error no map');
+			$scope.newMap();
+
 		}
 	};
 
@@ -318,6 +320,26 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 					
 	};
 
+
+	$scope.newMap = function(){
+		//create a blank map for a new user.
+		sailsSocket.get(
+			'/mesoMap/1',{},
+			function(response){
+
+				var newMap = {};
+				newMap.mapData = response.mapData;
+				newMap.userId = $scope.user.id;
+				sailsSocket.post('/mesoMap/',newMap,function(created){
+
+					$scope.user.mapId = created.id;
+					sailsSocket.put('/user/'+$scope.user.id, $scope.user,
+						function(done) {
+							$scope.getUserStations();
+					});
+				});
+		});
+	};
 
 	$scope.$on('viewComment',function(evt,station_id){
 		var station_index = -1;
