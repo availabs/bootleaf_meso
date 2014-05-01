@@ -4,7 +4,9 @@ var mesonet = {
   init:function(){
     /* Basemap Layers */
     var mapquestOSM = L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0po4e8k/{z}/{x}/{y}.png");
-     
+
+    var mbTerrainSat = L.tileLayer("https://{s}.tiles.mapbox.com/v3/matt.hd0b27jd/{z}/{x}/{y}.png");
+  
     var mapquestOAM = L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0pml9h7/{z}/{x}/{y}.png", {
       maxZoom: 19,
     });
@@ -28,10 +30,11 @@ var mesonet = {
       "Street Map": mapquestOSM,
       "Aerial Imagery": mapquestOAM,
       "Imagery with Streets": mapquestHYB,
+      "Aerial Imagery Terrain" : mbTerrainSat,
     };
    
     var layerControl = L.control.layers(baseLayers, {}, {
-      collapsed: true
+      collapsed: false
     }).addTo(mesonet.map);
 
     L.control.scale().addTo(mesonet.map);
@@ -57,6 +60,15 @@ var mesonet = {
     /* Functionality for Zoom to Extent*/
   $( "#zoom" ).click(function(map) {
       mesonet.map.setView([42.76314586689494,-74.7509765625], 7);
+  });
+
+  $( "#saveBtn" ).click(function() {
+      
+      $('#saveNote').show().delay(1000).fadeOut(500);
+
+      
+
+
   });
 
     popup.init();
