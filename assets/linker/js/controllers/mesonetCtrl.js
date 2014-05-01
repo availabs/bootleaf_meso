@@ -27,7 +27,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 				$scope.user = response.userInfo;
 				$scope.getUserStations();
 			}else{
-				console.log('not logged in, do nothing');
+				
 			}
     	});
     });
@@ -227,9 +227,11 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 					getElevation($scope.stations[$scope.stations.length-1].lat, $scope.stations[$scope.stations.length-1].lng,$scope.stations.length-1);
 				}
 				sailsSocket.get('/comment/find',{"where":{"mapId":$scope.mesoMap.id,"stationId":$scope.stations[$scope.stations.length-1].id}},
+				
 					function(response){
 						$scope.stations[$scope.stations.length-1].comments = response;
 					});
+				
 			});
 
 			$scope.addMarker = false;
@@ -344,15 +346,20 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	$scope.$on('viewComment',function(evt,station_id){
 		var station_index = -1;
 		$scope.stations.forEach(function(d,i){
-			if(d.id == station_id){
+			if((d.lat+d.lng) == station_id){
+				//console.log('station ding',d);
 				station_index = i;
 			}
 		});
+		//console.log('comments clicked',$scope.stations[station_index].comments);
 		var modalInstance = $modal.open({
 	      templateUrl: 'ViewCommentModalContent.html',
 	      controller: ViewCommentModalCtrl,
 	      resolve: {
-					comments: function () { return $scope.stations[station_index].comments; },
+					comments: function () { return $scope.stations[station_index].comments; 
+					
+				},
+
 	      }
 	    });
 	});
@@ -576,7 +583,7 @@ function CommentModalCtrl($scope, $modalInstance,sailsSocket,user,station_id,map
 
 function ViewCommentModalCtrl($scope, $modalInstance,comments) {
 	$scope.comments = comments;
-	
+	//console.log($scope.comments);
   $scope.ok = function (action,u,p) {
 			$modalInstance.close();
 	};

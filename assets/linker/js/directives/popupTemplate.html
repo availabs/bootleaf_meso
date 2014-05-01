@@ -63,7 +63,7 @@
 			<td>
 			<div class="btn-group">
 				<button class='btn btn-default col-sm-5' ng-click="addComment(station.id)" style="font-size:10px" ng-disabled='!saved'>Comment</button>
-				<button class='btn btn-default col-sm-7' ng-click="viewComments(station.id)" style="font-size:10px;padding-left:7px;" ng-disabled="station.comments.length == 0">View Comments ({{station.comments.length}})</button>
+				<button class='btn btn-default col-sm-7' ng-click="viewComments(station.lat+station.lng)" style="font-size:10px;padding-left:7px;" ng-disabled="station.comments.length == 0">View Comments ({{station.comments.length}})</button>
 				<div class="btn-group">
 			</td>
 		<tr>
