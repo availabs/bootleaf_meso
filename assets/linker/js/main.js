@@ -6,6 +6,8 @@ var mesonet = {
     var mapquestOSM = L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0po4e8k/{z}/{x}/{y}.png");
 
     var mbTerrainSat = L.tileLayer("https://{s}.tiles.mapbox.com/v3/matt.hd0b27jd/{z}/{x}/{y}.png");
+
+    var mbTerrainReg = L.tileLayer("https://{s}.tiles.mapbox.com/v3/aj.um7z9lus/{z}/{x}/{y}.png");
   
     var mapquestOAM = L.tileLayer("http://{s}.tiles.mapbox.com/v3/am3081.h0pml9h7/{z}/{x}/{y}.png", {
       maxZoom: 19,
@@ -23,14 +25,16 @@ var mesonet = {
     mesonet.map = L.map("map", {
           center: [42.76314586689494,-74.7509765625],
           zoom: 7,
-      layers: [mapquestOSM]
+      layers: [mbTerrainReg]
     });
 
     var baseLayers = {
       "Street Map": mapquestOSM,
       "Aerial Imagery": mapquestOAM,
       "Imagery with Streets": mapquestHYB,
-      "Aerial Imagery Terrain" : mbTerrainSat,
+      "Aerial Imagery with Terrain" : mbTerrainSat,
+      "Terrain Contours": mbTerrainReg,
+
     };
    
     var layerControl = L.control.layers(baseLayers, {}, {
@@ -40,9 +44,9 @@ var mesonet = {
     L.control.scale().addTo(mesonet.map);
     /*load and differentiate leaflet-tile layers for use with sidebar layer control*/
     mesonet.map.addLayer(rainfall);
-    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',4).attr('id','rainfall').hide();
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',7).attr('id','rainfall').hide();
     mesonet.map.addLayer(floodplains);
-    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',4).attr('id','floodplain').hide();   
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',8).attr('id','floodplains').hide();   
 
     /*Necessary for Loading Sidebar Properly*/
     var sidebarLoaded = false; 
@@ -56,6 +60,8 @@ var mesonet = {
         mesonet.sidebar.toggle();
       }
     });
+
+
     
     /* Functionality for Zoom to Extent*/
   $( "#zoom" ).click(function(map) {
@@ -66,8 +72,11 @@ var mesonet = {
       
       $('#saveNote').show().delay(1000).fadeOut(500);
 
-      
+  });
 
+   $( ".btnDelete" ).click(function() 
+{      
+      $('#saveNote').show().delay(1000).fadeOut(500);
 
   });
 

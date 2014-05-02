@@ -548,7 +548,13 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 				$scope.user = {};
 				$scope.loggedIn = false;
 				mesoStation.setDraggable(false);
-				
+				mesonet.sidebar.hide();
+				$('.leaflet-d3-group').fadeOut(1000);
+				$('img[alt="primary"]').hide();
+				$('img[alt="main"]').hide();
+				$('img[alt="user"]').hide();
+				$('img[alt="userL2"]').hide();
+
 			});
 	};
 	

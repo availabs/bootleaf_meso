@@ -151,8 +151,8 @@ head
             a#saveBtn(ng-click="saveChanges()", data-target='.navbar-collapse.in',style='color: black;', ng-show="user.accessLevel >= 0")
               i.fa.fa-floppy-o(style='color: black;')
               |  Save Changes
-          li.user-info.alert.alert-info(ng-show="loggedIn") Logged in as 
-              strong{{user.username}}
+          li.user-info.alert.alert-info(ng-show="loggedIn") Logged in as  
+              strong {{user.username}}
               button.close(type='button', data-dismiss='alert', aria-hidden='true', style='padding-left:5px;') × 
           span.alert.alert-success#saveNote(style='float:right;display:none;') {{saveChanged}}
 

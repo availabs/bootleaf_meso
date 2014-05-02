@@ -191,10 +191,14 @@ border-color: #333;
 color: black;
 }
 
-span#county_legend {
+/*span#county_legend {
 font-size: 11px;
 }
 
+span#rainfall_legend {
+font-size: 11px;
+}
+*/
 button.navbar-toggle:after{
 font-family:FontAwesome;
 content: "\f039";
@@ -251,4 +255,10 @@ padding: 13;
 margin-bottom: 20px;
 border: 1px solid transparent;
 border-radius: 4px;
+}
+.navbar-nav>li>.dropdown-menu {
+margin-top: 0;
+border-top-right-radius: 0;
+border-top-left-radius: 0;
+width: 225;
 }

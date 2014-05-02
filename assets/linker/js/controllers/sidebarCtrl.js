@@ -37,7 +37,7 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
     {
         name:'Political Boundaries', 
         layers:[
-          {name:'County Population',selector:'county', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'2',opacity:'0.4'},mouseover:{info:[{name:"Population",prop:"pop"},{name:"Name: ",prop:"Name"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}},choropleth:{key:'P0010001', range:["#d73027","#fc8d59","#fee08b","#ffffbf","#d9ef8b","#91cf60","#1a9850"]}},
+          {name:'County Population',selector:'county', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'2',opacity:'0.4'},mouseover:{info:[{name:"Population: ",prop:"P0010001"},{name:"Name: ",prop:"NAME"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}},choropleth:{key:'P0010001', range:["#d73027","#fc8d59","#fee08b","#ffffbf","#d9ef8b","#91cf60","#1a9850"]}},
           {name:'Congressional Districts',selector:'congress', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'2',opacity:'0.4',fill:'#00FF3A'},mouseover:{info:[{name:"<strong>",prop:"NAMELSAD"},{name:"</strong>Representative: ",prop:"CD_Name"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
           {name:'State Assmebly Districts',selector:'assembly', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'2',opacity:'0.4',fill:'#A748FF'},mouseover:{info:[{name:"<strong>",prop:"NAMELSAD"},{name:"</strong>Representative: ",prop:"AD_Name"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
           {name:'Senate Districts',selector:'senate', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'2',opacity:'0.4',fill:'#FFD929'},mouseover:{info:[{name:"",prop:"NAMELSAD"},{name:"</strong>Representative: ",prop:"Rep_Name"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}}
@@ -66,11 +66,14 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
   ];
 
   
-  $scope.oneAtATime = false;
+  $scope.oneAtATime = true;
   
   $scope.layerClick=function(layer){
     var typeSelect = "#";
     if(layer.type == 'leaflet'){typeSelect = '';}
+    
+    
+
     if(!layer.loaded){
       $http.post('/geodata/getLayer', {selector:layer.selector}).success(function(geoData){
         var options = {layerId:layer.selector};
@@ -103,6 +106,7 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
           options.choropleth = {scale:color,key:layer.choropleth.key};
           leafletLegend(color,layer);
         }
+     
       
        mesonet.map.addLayer(new L.GeoJSON.d3(geoData,options));
       
@@ -118,24 +122,24 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
         $('#legend-list').append('<li id="'+layer.selector+'_legend"><svg width="20" height="20"><circle cx="10" cy="10" r="7" fill="'+layer.style.fill+'" class="'+layer.selector+'""></circle><</svg><span>'+layer.name+'</span></li>');
         }
       });
-          
+  
     }else if(layer.visible){
-      $(typeSelect+ layer.selector).hide();
+      $(typeSelect+ layer.selector).fadeOut(600);
       $('#'+ layer.selector+'_legend').hide();
       layer.visible=false;
     }else {
-      $(typeSelect+ layer.selector).show();
+      $(typeSelect+ layer.selector).fadeIn(600);
       $('#'+ layer.selector+'_legend').show();
+      rainfallLegend(layer);
       layer.visible=true;
-    }
-    
+    }    
   }
 
   leafletLegend = function(scale,layer){
     var legendText ='<span id="'+layer.selector+'_legend"><li>'+layer.name+'</li>';
     var prev = 0;
     var numbers = ["zero","one","two","three","four","five","six","seven","eight","nine"];
-    console.log(scale.domain());
+   // console.log(scale.domain());
     scale.domain().forEach(function(d,i){
       
       if(i === 0){
@@ -149,30 +153,46 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
     legendText += '<li><svg width="20" height="20"><rect width="300" height="100" fill="'+layer.choropleth.range[scale.domain().length]+'"></rect></svg><span>&gt; '+number_format(scale.domain()[scale.domain().length-1].toFixed(0))+'</span></li>';
       
     legendText +="</span>";
+   
     $('#legend-list').append(legendText);
+    
   }
 
-
-
+  rainfallLegend=function(layer){
+    var legendText ='<span id="'+layer.selector+'_legend"><li>'+layer.name+'</li>';
+    var rainfall_legend = [{'value':84962.7,'color':'rgba(26,150,65,255)'},{'value':99541.8,'color':'rgba(166,217,106,255)'},{'value':114121,'color':'rgba(255,255,192,255)'},{'value':128700,'color':'rgba(253,174,97,255)'},{'value':143279,'color':'rgba(215,25,28,255)'}];
+    if(layer.selector == 'rainfall'){
+      $('#rainfall_legend').remove();
+      rainfall_legend.forEach(function(d,i){
+        if(i === 0){
+          legendText += '<li><svg width="20" height="20"><rect width="300" height="100" fill="'+d.color+'"></rect></svg><span>&lt;= '+(rainfall_legend[i].value * 0.000393701).toFixed(2)+'\" </span></li>';
+        }
+        else{
+          legendText += '<li><svg width="20" height="20"><rect width="300" height="100" fill="'+d.color+'"></rect></svg><span> '+(rainfall_legend[i-1].value * 0.000393701).toFixed(2)+'\" - '+(rainfall_legend[i].value * 0.000393701).toFixed(2)+'\"</span></span></li>';
+        }
+      });
+      $("#legend-list").append(legendText);
+    }   
+  }
+  
+  
   $scope.hideLayers=function(Layers){
-    
+  
     currentLayer = $scope.Layers;
     currentLayer.forEach(function(currentLayer){
       currentLayer.layers.forEach(function(layer){
         var typeSelect = "#";
         if(layer.type == 'leaflet'){typeSelect = '';}
         if(layer.visible){
-          $(typeSelect+ layer.selector).hide();
-          $('#'+ layer.selector+'_legend').hide();
+          $(typeSelect+ layer.selector).fadeOut(600);
+          $('#'+ layer.selector+'_legend').fadeOut(600);
           layer.visible=false;
         }
       });
     });
    // mesonet.sidebar.toggle();
+  
   }
-
-    
-
 
   $scope.isVisible = function(layer){
     if(layer.visible){
