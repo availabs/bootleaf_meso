@@ -21,7 +21,7 @@ module.exports = {
   allStations: function (req,res) {
     var current_user = req.param('currentUser');
     User.find()
-    .where({ accessLevel: { '<': 2 }})
+    .where({ accessLevel: { '<': 3 }})
     .done(function(err, users){
       if (err) console.log(err);
       var output=[];
