@@ -7,14 +7,13 @@
  		<tr>
 			<td><strong>Station Id:</stong></td><td>{{station.id}}</td>
 		</tr>
-		<tr ng-hide="!editable || station.type == 'user' || station.type == 'userL2'">
+		<tr ng-hide="!editable || accessLevel < '3'">
 	  	<td><strong>Station Type:</strong></td>
 			<td>
 		  	<select ng-model="station.type" ng-change='changeIcon(station)' style='padding:5px;background-color:#fff'>
-			  	<!--<option value='mesonet'> Mesonet Site</option>
+			  	<option value='mesonet'> Mesonet Site</option>
 			  	<option value='profiler'> Profiler site </option>
 			  	<option value='suny'> SUNY System Site</option>
-			  
 			  	<option value='primary_Canal'> Primary Canal Site</option>
 			  	<option value='primary_Profiler'>Primary Profiler site </option>
 			  	<option value='primary_SUNY'>Primary SUNY System Site</option>
@@ -26,7 +25,6 @@
 			  	<option value='high-impact'> Frequent high-impact events </option>
 			  	<option value='deficiency'> Model deficiency areas </option>
 			  	<option value='other-sectors'> Beneficial to other sectors </option>
-			  	-->
 			  	<option value='snow'> Snow Measurement Site</option>
 			  	<option value='userL2'> Siting Committee Site</option>
 		  	</select>

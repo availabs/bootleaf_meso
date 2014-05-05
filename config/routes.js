@@ -32,17 +32,15 @@ module.exports.routes = {
   // located at `views/home/index.ejs`
   // 
   // (This would also work if you had a file at: `/views/home.ejs`)
-  '/oldstuff': {
+  /*'/oldstuff': {
     view: 'main/index'
-  },
+  },*/
   '/rest-examples': {
     view: 'main/rest'
   },
   '/todos': 'MainController.todos',
   
-  '/oldversion':{
-    view: 'mesonet/index'
-  },
+  /*xxx*/
   '/mesomap/userStations':{
     controller:'mesomapController',
     action:'allStations'

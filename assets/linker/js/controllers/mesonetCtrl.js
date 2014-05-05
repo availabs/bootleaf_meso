@@ -127,12 +127,17 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	$scope.exportComments = function (){
 		sailsSocket.get('/comment/',
 			function(response){
+				console.log('export comments!!',response);
 				var output  = [['user','station_id','type','body','1st Tier?','createdAt']];
 				response.forEach(function(comment){
 					if(!comment.primary){
 						comment.primary = '';
 					}
-					output.push([comment.username,comment.userId+"_"+comment.stationId,comment.type,comment.body,comment.primary,comment.createdAt]);
+					var body = '';
+					if(comment.body !== null){
+						body = comment.body.replace('#','no.');
+					}
+					output.push([comment.username,comment.userId+"_"+comment.stationId,comment.type,'"'+body+'"',comment.primary,comment.createdAt]);
 				})
 				downloadCSV(output,"mesonet_comments.csv",'#export_comments');
 			}
@@ -461,8 +466,14 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 					getElevation($scope.stations[i].lat, $scope.stations[i].lng,i);
 				}
 				if($scope.user.accessLevel >= 1){
-					sailsSocket.get('/comment/find',{"where":{"mapId":$scope.mesoMap.id,"stationId":$scope.stations[i].id}},
+					var where = {"where":{"mapId":$scope.mesoMap.id,"stationId":$scope.stations[i].id}};
+					if($scope.stations[i].type == 'user'){
+						where = {"where":{"mapId":$scope.mesoMap.id,"stationId":$scope.stations[i].id,"username":$scope.stations[i].username}};
+					}
+					console.log($scope.stations[i],where);
+					sailsSocket.get('/comment/find',where,
 					function(response){
+						console.log(response);
 						$scope.stations[i].comments = response;
 					});
 				}else{
