@@ -16,6 +16,8 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	$scope.vis.main = false;
 	$scope.vis.user = false;
 	$scope.vis.userL2 = false;
+	$scope.vis.phaseIIa = false;
+	$scope.vis.phaseIIb = false;
 
     $scope.$on('sailsSocket:connect', function(ev, data) {
     // Get Session Status
@@ -269,6 +271,8 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 		$scope.vis.main = $('img[alt="main"]').is(':visible');
 		$scope.vis.user = $('img[alt="user"]').is(':visible');
 		$scope.vis.userl2 = $('img[alt="user"]').is(':visible');
+		$scope.vis.phaseIIa = $('img[alt="phaseIIa"]').is(':visible');
+		$scope.vis.phaseIIb = $('img[alt="phaseIIb"]').is(':visible');
 		
 		if($scope.user.accessLevel >= 1){
 			//console.log($scope.stations);
@@ -565,7 +569,9 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 				$('img[alt="main"]').hide();
 				$('img[alt="user"]').hide();
 				$('img[alt="userL2"]').hide();
-
+				$('img[alt="phaseIIa"]').hide();
+				$('img[alt="phaseIIb"]').hide();
+		
 			});
 	};
 	

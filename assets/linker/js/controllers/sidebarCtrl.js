@@ -5,10 +5,12 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
    {
         name:"Stations", 
         layers:[
-          {selector:'img[alt="primary"]',name:'Phase 1 Stations',loaded:true,visible:false,type:'leaflet'},
+          {selector:'img[alt="primary"]',name:'Phase I Stations',loaded:true,visible:false,type:'leaflet'},
           {selector:'img[alt="main"]',name:'Proposal Stations',loaded:true,visible:false,type:'leaflet'},
           {selector:'img[alt="user"]',name:'User Stations',loaded:true,visible:false,type:'leaflet'},
-          {selector:'img[alt="userL2"]',name:'Committee Stations',loaded:true,visible:false,type:'leaflet'}
+          {selector:'img[alt="userL2"]',name:'Committee Stations',loaded:true,visible:false,type:'leaflet'},
+          {selector:'img[alt="phaseIIa"]',name:'Phase II (Batch 1)',loaded:true,visible:false,type:'leaflet'},
+          {selector:'img[alt="phaseIIb"]',name:'Phase II (Batch 2)',loaded:true,visible:false,type:'leaflet'}
         ]
     },
     {
@@ -81,10 +83,8 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
   $scope.layerClick=function(layer){
     var typeSelect = "#";
     if(layer.type == 'leaflet'){typeSelect = '';}
-    
-    
-
-    if(!layer.loaded){
+        
+      if(!layer.loaded){
       $http.post('/geodata/getLayer', {selector:layer.selector}).success(function(geoData){
         var options = {layerId:layer.selector};
         if(typeof layer.mouseover != 'undefined'){

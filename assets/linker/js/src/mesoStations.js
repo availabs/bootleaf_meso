@@ -20,6 +20,9 @@ mesoStation = {
 	snowIcon:L.icon({iconUrl: '/linker/js/images/snowy.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	userIcon:L.icon({iconUrl: '/linker/js/images/imp_forecasting.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	userIconL2:L.icon({iconUrl: '/linker/js/images/anemometer_g1_1.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
+	phaseIIaIcon:L.icon({iconUrl: '/linker/js/images/beneficial.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
+	phaseIIbIcon:L.icon({iconUrl: '/linker/js/images/profiler.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
+
 	drawStations : function(visability) {
 		
 		if(mesoStation.markers.length > 0) { mesoStation.clearMarkers(); }
@@ -97,6 +100,14 @@ mesoStation = {
 					chosenIcon = mesoStation.ssunyIcon;
 					selectionType = 'primary';
 					break;
+				case 'phaseIIa':
+					chosenIcon = mesoStation.phaseIIaIcon;
+					selectionType = 'phaseIIa';
+					break;
+				case 'phaseIIb':
+					chosenIcon = mesoStation.phaseIIbIcon;
+					selectionType = 'phaseIIb';
+					break;
 			}
 			
 			var station = L.marker([d.lat,d.lng],{icon:chosenIcon,draggable:mesoStation.draggable,alt:selectionType});
@@ -113,6 +124,9 @@ mesoStation = {
 		if(!visability.main) $('img[alt="main"]').hide();
 		if(!visability.user) $('img[alt="user"]').hide();
 		if(!visability.user) $('img[alt="userL2"]').hide();
+		if(!visability.user) $('img[alt="userL2"]').hide();
+		if(!visability.user) $('img[alt="phaseIIa"]').hide();
+		if(!visability.user) $('img[alt="phaseIIb"]').hide();
 	},
 	setDraggable : function(true_or_false){
 		mesoStation.draggable = true_or_false;
