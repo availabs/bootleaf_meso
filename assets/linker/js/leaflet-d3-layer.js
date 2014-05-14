@@ -55,7 +55,7 @@
           
               }else{
                 text += ""+ option.name+"<br>";
-                console.log('nah bro') ;
+               // console.log('nah bro') ;
               } 
             })
           

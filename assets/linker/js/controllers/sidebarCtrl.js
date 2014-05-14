@@ -21,9 +21,8 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
           {name:'Public Libraries',selector:'libraries', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#77FFC6'},mouseover:{info:[{name:"",prop:"NAME"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
           {name:'Public Schools',selector:'schools', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#00FF0E'},mouseover:{info:[{name:"",prop:"NAME"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
           {name:'NYSNET CORS',selector:'nysnet', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#7967FF'},mouseover:{info:[{name:"",prop:"NAME"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
-          {name:'Wind Farms',selector:'wind_stations', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#551a8b'},mouseover:{info:[{name:"",prop:"FarmName"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}}
-          
-        ]
+          {name:'Wind Farms',selector:'wind_stations', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#551a8b'},mouseover:{info:[{name:"",prop:"FarmName"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
+          {name:'NADP Sites',selector:'nadp', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#000000'},mouseover:{info:[{name:"Name: ",prop:"Name"},{name:"Operating Agency: ",prop:"Operating Agency"},{name:"Elevation (m): ",prop:"Elev. (m)"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}}        ]
     },
     {
         name:'Department of Environmental Protection', 
@@ -40,10 +39,17 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
           {name:'Canal Precip Gauges',selector:'cc_rainfall', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#FF00E3'},mouseover:{info:[{name:"Source: ",prop:"Source"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
           {name:'Canal Water Level Gauges',selector:'water', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#FF9500'},mouseover:{info:[{name:"Gauge ID: ",prop:"GAGE"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
           {name:'Canal Corp Structures',selector:'cc_struct', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#000000'},mouseover:{info:[{name:"Structure Name: ",prop:"STRUCT_NAM"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
-          {name:'Fiber Optic Access Points',selector:'fiber_access', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#77FFC6'},mouseover:{info:[{name:"Fiber Access Point: ",prop:"OBJECTID"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
-          {name:'Thruway Land',selector:'thru_land', loaded:false, visible:false, type:'d3',style:{opacity:'0.5',cursor:'pointer',fill:'#ff0', stroke:'black','stroke-width':'1px'},mouseover:{info:[{name:"Thruway Land"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
           {name:'Canal Corporation Land',selector:'cc_land', loaded:false, visible:false, type:'d3',style:{opacity:'0.5',cursor:'pointer',fill:'#FF9500', stroke:'black','stroke-width':'1px'},mouseover:{info:[{name:"Canal Corporaton Land"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}}
 
+        ]
+    },
+     {
+        name:'NYS Thruway', 
+        layers:[
+          {name:'Thruway Land',selector:'thru_land', loaded:false, visible:false, type:'d3',style:{opacity:'0.5',cursor:'pointer',fill:'#ff0', stroke:'black','stroke-width':'1px'},mouseover:{info:[{name:"Thruway Land"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
+          {name:'Fiber Optic Access Points',selector:'fiber_access', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#77FFC6'},mouseover:{info:[{name:"Fiber Access Point: ",prop:"OBJECTID"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
+          {name:'Fiber Optic Regen Points',selector:'fiber_regen', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#FF00E3'},mouseover:{info:[{name:"Fiber Regen Point"},{name:"Milepost: ",prop:"MILEPOINT"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
+          {name:'NYS Thruway Buildings',selector:'thru_build', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#551a8b'},mouseover:{info:[{name:"Division: ",prop:"DIVISION"},{name:"Description:  ",prop:"DESCRIPTIO"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}}
         ]
     },
     {
