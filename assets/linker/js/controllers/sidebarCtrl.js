@@ -49,6 +49,16 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
           {name:'Thruway Land',selector:'thru_land', loaded:false, visible:false, type:'d3',style:{opacity:'0.5',cursor:'pointer',fill:'#ff0', stroke:'black','stroke-width':'1px'},mouseover:{info:[{name:"Thruway Land"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
           {name:'Fiber Optic Access Points',selector:'fiber_access', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#77FFC6'},mouseover:{info:[{name:"Fiber Access Point: ",prop:"OBJECTID"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
           {name:'Fiber Optic Regen Points',selector:'fiber_regen', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#FF00E3'},mouseover:{info:[{name:"Fiber Regen Point"},{name:"Milepost: ",prop:"MILEPOINT"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
+          {name:'Thruway Camera Locations',selector:'thru_cam', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'red'},mouseover:{info:[{name:"<strong>Camera Name: ",prop:"CAMERA_NAM"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
+          {name:'Thruway Radio Tower',selector:'thru_radio', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'blue'},mouseover:{info:[
+              {name:"<strong>Site Name: ",prop:"SITE_NAME"},
+              {name:"</strong>Category: ",prop:"TOWER_CATE"},
+              {name:"Tower Owner: ",prop:"TOWER_OWNE"},
+              {name:"Site Owner: ",prop:"SITE_OWNER"},
+              {name:"Tower Height: ",prop:"TOWER_HEIG"}],
+              style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
+          {name:'Thruway Microwave Lines',selector:'thru_micro', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'purple'},mouseover:{info:[{name:"<strong>Name: ",prop:"Descriptio"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}},
+
           {name:'NYS Thruway Buildings',selector:'thru_build', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'0px',fill:'#551a8b'},mouseover:{info:[{name:"Division: ",prop:"DIVISION"},{name:"Description:  ",prop:"DESCRIPTIO"}],style:{cursor:'pointer',stroke:'black', stroke:'red','stroke-width':'2px'}}}
         ]
     },
