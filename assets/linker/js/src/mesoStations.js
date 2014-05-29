@@ -20,8 +20,8 @@ mesoStation = {
 	snowIcon:L.icon({iconUrl: '/linker/js/images/snowy.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	userIcon:L.icon({iconUrl: '/linker/js/images/imp_forecasting.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	userIconL2:L.icon({iconUrl: '/linker/js/images/anemometer_g1_1.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
-	phaseIIaIcon:L.icon({iconUrl: '/linker/js/images/beneficial.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
-	phaseIIbIcon:L.icon({iconUrl: '/linker/js/images/profiler.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
+	metIcon:L.icon({iconUrl: '/linker/js/images/beneficial.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
+	profilerIcon:L.icon({iconUrl: '/linker/js/images/profiler2.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 
 	drawStations : function(visability) {
 		
@@ -40,10 +40,12 @@ mesoStation = {
 					chosenIcon = mesoStation.sunyIcon;
 					selectionType = 'main';
 					break;
+				/*
 				case "profiler":
 					chosenIcon = mesoStation.profilerIcon;
 					selectionType = 'main';
 					break;
+				*/
 				case 'high-impact':
 					chosenIcon = mesoStation.high_impactIcon;
 					selectionType = 'main';
@@ -58,7 +60,7 @@ mesoStation = {
 					break;
 				case 'snow':
 					chosenIcon = mesoStation.snowIcon;
-					selectionType = 'main';
+					selectionType = 'snow';
 					break;
 				case 'user':
 					chosenIcon = mesoStation.userIcon;
@@ -100,14 +102,17 @@ mesoStation = {
 					chosenIcon = mesoStation.ssunyIcon;
 					selectionType = 'primary';
 					break;
-				case 'phaseIIa':
-					chosenIcon = mesoStation.phaseIIaIcon;
-					selectionType = 'phaseIIa';
+				case 'met':
+					chosenIcon = mesoStation.metIcon;
+					selectionType = 'met';
 					break;
-				case 'phaseIIb':
-					chosenIcon = mesoStation.phaseIIbIcon;
-					selectionType = 'phaseIIb';
+				case 'profiler':
+					chosenIcon = mesoStation.profilerIcon;
+					selectionType = 'profiler';
 					break;
+				case 'snow':
+					chosenIcon = mesoStation.snowIcon;
+					selectionType = 'snow';
 			}
 			
 			var station = L.marker([d.lat,d.lng],{icon:chosenIcon,draggable:mesoStation.draggable,alt:selectionType});
@@ -125,8 +130,9 @@ mesoStation = {
 		if(!visability.user) $('img[alt="user"]').hide();
 		if(!visability.user) $('img[alt="userL2"]').hide();
 		if(!visability.user) $('img[alt="userL2"]').hide();
-		if(!visability.user) $('img[alt="phaseIIa"]').hide();
-		if(!visability.user) $('img[alt="phaseIIb"]').hide();
+		if(!visability.user) $('img[alt="met"]').hide();
+		if(!visability.user) $('img[alt="snow"]').hide();
+		if(!visability.user) $('img[alt="profiler"]').hide();
 	},
 	setDraggable : function(true_or_false){
 		mesoStation.draggable = true_or_false;

@@ -16,8 +16,9 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	$scope.vis.main = false;
 	$scope.vis.user = false;
 	$scope.vis.userL2 = false;
-	$scope.vis.phaseIIa = false;
-	$scope.vis.phaseIIb = false;
+	$scope.vis.snow = false;
+	$scope.vis.met = false;
+	$scope.vis.profiler = false;
 
     $scope.$on('sailsSocket:connect', function(ev, data) {
     // Get Session Status
@@ -58,7 +59,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
   $scope.getUserStations = function(){
 		if($scope.user.mapId != -1 && $scope.user.mapId !== null){
 			sailsSocket.get(
-				'/mesoMap/4',{},
+				'/mesoMap/25',{},
 				function(response){
 					$scope.mesoMap = response;
 					$scope.stations = response.mapData;
@@ -94,6 +95,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 									}
 								});
 								actualStations.forEach(function(d){
+									
 									$scope.stations.push(d);
 								});
 								mesoStation.drawStations($scope.vis);
@@ -271,8 +273,9 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 		$scope.vis.main = $('img[alt="main"]').is(':visible');
 		$scope.vis.user = $('img[alt="user"]').is(':visible');
 		$scope.vis.userl2 = $('img[alt="user"]').is(':visible');
-		$scope.vis.phaseIIa = $('img[alt="phaseIIa"]').is(':visible');
-		$scope.vis.phaseIIb = $('img[alt="phaseIIb"]').is(':visible');
+		$scope.vis.snow = $('img[alt="snow"]').is(':visible');
+		$scope.vis.met = $('img[alt="met"]').is(':visible');
+		$scope.vis.profiler = $('img[alt="profiler"]').is(':visible');
 		
 		if($scope.user.accessLevel >= 1){
 			//console.log($scope.stations);

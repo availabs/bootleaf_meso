@@ -9,8 +9,9 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
           {selector:'img[alt="main"]',name:'Proposal Stations',loaded:true,visible:false,type:'leaflet'},
           {selector:'img[alt="user"]',name:'User Stations',loaded:true,visible:false,type:'leaflet'},
           {selector:'img[alt="userL2"]',name:'Committee Stations',loaded:true,visible:false,type:'leaflet'},
-          {selector:'img[alt="phaseIIa"]',name:'Phase II (Batch 1)',loaded:true,visible:false,type:'leaflet'},
-          {selector:'img[alt="phaseIIb"]',name:'Phase II (Batch 2)',loaded:true,visible:false,type:'leaflet'}
+          {selector:'img[alt="met"]',name:'Meteorological Stations',loaded:true,visible:false,type:'leaflet'},
+          {selector:'img[alt="profiler"]',name:'Enhanced (Profiler) Stations',loaded:true,visible:false,type:'leaflet'},
+          {selector:'img[alt="snow"]',name:'Snow Stations',loaded:true,visible:false,type:'leaflet'}
         ]
     },
     {

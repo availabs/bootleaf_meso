@@ -34,8 +34,8 @@
         return d.id;
       });
       feature = join.enter().append("path");
-      
-      if(typeof layer_options.mouseover !='undefined'){
+
+ 		if(typeof layer_options.mouseover !='undefined'){
        
         feature.on("mouseover", function(d) {
          
