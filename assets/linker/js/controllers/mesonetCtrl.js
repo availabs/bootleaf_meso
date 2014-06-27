@@ -131,7 +131,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 	$scope.exportComments = function (){
 		sailsSocket.get('/comment/',
 			function(response){
-				console.log('export comments!!',response);
+				//console.log('export comments!!',response);
 				var output  = [['user','station_id','type','body','1st Tier?','createdAt']];
 				response.forEach(function(comment){
 					if(!comment.primary){
