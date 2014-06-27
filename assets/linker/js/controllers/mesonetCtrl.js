@@ -169,7 +169,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 			dataString = infoArray.join(",");
 			csvContent += dataString+ "\n";
 		});
-		//if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1 ){
+		if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1 ){
 			var encodedUri = encodeURI(csvContent);
 			var link = document.createElement("a");
 			link.setAttribute("href", encodedUri);
