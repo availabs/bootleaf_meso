@@ -27,7 +27,30 @@ var mesonet = {
           zoom: 7,
       layers: [mbTerrainReg]
     });
+    //staydry1-4, only change the layers
+    //get rid of the width but make sure it works
+    //Open up the NYS shapefile in QGIS and save it as a geojson
+    var staydry1 = L.tileLayer.wms("http://107.20.228.18/ArcGIS/services/Riparian/MapServer/KmlServer", {
+        layers: 3,
+        format: 'image/png',
+        styles:'default',
+        width:1024,
+        height:1024,
+        transparent: true,
+        crs:L.CRS.EPSG4326
+        //attribution: "Weather data © 2012 IEM Nexrad"
+    });
+    var nexrad = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+        layers: 'nexrad-n0r-900913',
+        format: 'image/png',
+        transparent: true,
+        attribution: "Weather data © 2012 IEM Nexrad"
+    });
 
+    var testLayers = {
+      'fema1':fema1,
+      'poland':nexrad
+    }
     var baseLayers = {
       "Street Map": mapquestOSM,
       "Aerial Imagery": mapquestOAM,
@@ -37,7 +60,7 @@ var mesonet = {
 
     };
    
-    var layerControl = L.control.layers(baseLayers, {}, {
+    var layerControl = L.control.layers(baseLayers, testLayers, {
       collapsed: false
     }).addTo(mesonet.map);
 
