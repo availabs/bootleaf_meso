@@ -72,6 +72,7 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
           {name:'NYS SubBasins (HUC 8)',selector:'huc8', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',opacity:'0.4',stroke:'black','stroke-width':'2',fill:'FF6600'},mouseover:{info:[{name:"<strong>",prop:"Name"},{name:"</strong>HUC8: ",prop:"HUC8"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
           {name:'NYS Watersheds (HUC 10)',selector:'huc10', loaded:false, visible:false, type:'d3',style:{cursor:'pointer',stroke:'black','stroke-width':'2',opacity:'0.4',fill:'#3399FF'},mouseover:{info:[{name:"HUC10:",prop:"HUC10"},{name:"Name: ",prop:"Name"}],style:{opacity:'.6',stroke:'red','stroke-width':'4px'}}},
           {name:'Average Rainfall',selector:'rainfall', loaded:true, visible:false, type:'d3'},
+          {name:'Fema Stay Dry',selector:'staydry', loaded:true, visible:false, type:'d3'},
           {name:'Flood Hazard Zones',selector:'floodplains', loaded:true, visible:false, type:'d3'}
         
         ]

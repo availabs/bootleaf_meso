@@ -144,6 +144,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, sailsSocket, $log, $c
 
 	$scope.exportStations = function(){
 		var output = [['id','name','type','elevation','lat','lng','Assembly_District','Congressional_District','County_Name','HU8_Name','HU10_Name','RadarSite_1_5km','RadarSite_1km','RadarSite_2km','Senate_District','ad_name','cd_name']];
+		console.log(JSON.stringify($scope.stations));
 		$scope.stations.forEach(function(station){
 			if(!station.elevation){
 				station.elevation = 0;

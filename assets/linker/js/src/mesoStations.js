@@ -17,11 +17,11 @@ mesoStation = {
 	high_impactIcon:L.icon({iconUrl: '/linker/js/images/high_impact.png',iconSize: [12, 12],iconAnchor: [ 12/2,24],popupAnchor:[0,-18]}),
 	deficiencyIcon:L.icon({iconUrl: '/linker/js/images/deficient.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	other_sectorsIcon:L.icon({iconUrl: '/linker/js/images/beneficial.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
-	snowIcon:L.icon({iconUrl: '/linker/js/images/snowy.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
+	snowIcon:L.icon({iconUrl: '/linker/js/images/green.png',iconSize: [12, 12],iconAnchor: [ 6,6],popupAnchor:[3,0]}),
 	userIcon:L.icon({iconUrl: '/linker/js/images/imp_forecasting.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
 	userIconL2:L.icon({iconUrl: '/linker/js/images/anemometer_g1_1.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
-	metIcon:L.icon({iconUrl: '/linker/js/images/beneficial.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
-	profilerIcon:L.icon({iconUrl: '/linker/js/images/profiler2.png',iconSize: [24, 24],iconAnchor: [ 24/2,24],popupAnchor:[0,-18]}),
+	metIcon:L.icon({iconUrl: '/linker/js/images/red.png',iconSize: [12, 12],iconAnchor: [ 6,6],popupAnchor:[3,0]}),
+	profilerIcon:L.icon({iconUrl: '/linker/js/images/blue.png',iconSize: [12, 12],iconAnchor: [ 6,6],popupAnchor:[3,0]}),
 
 	drawStations : function(visability) {
 		

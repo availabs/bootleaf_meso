@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Stay Dry and Flood Smart!</name>
+	<open>1</open>
+	<Snippet>&lt;b&gt;Click the name for more information&lt;/b&gt;</Snippet>
+	<description><![CDATA[<big><p>Information about FEMA's National Flood Insurance Program:  A good starting point is FEMA's <a href="http://www.floodsmart.gov" >FloodSmart.gov</a> web site.</p><p>Questions or comments about this application?  Send them to <a href="mailto:miphelp@riskmapcds.com TITLE="NFHL Google Earth:">miphelp@riskmapcds.com</a>.</p>
+
+<p>Need help getting started with Google Earth?  Here are some pointers:</p>
+
+<p>To the left is a control panel that contains (from top to bottom) the:</p>
+<ul>
+<li>Search panel.  Use the “Search” tab to zoom to a place by typing an address or coordinates.</li>
+<li>Places panel.  The controls under the “Stay Dry and Flood Smart!” folder allow you to use the two-step process to see flood hazard map information.</li>
+<li>Layers panel.  Turns on background data from Google Earth.  We recommend you turn on “Terrain,” “Roads,” and “Borders and Labels” only.</li>
+</ul> 
+
+<p><b>If you don't see a panel to the left</b> go to the menu bar (<i>File, Edit, View,</i> etc) at the top of the Google Earth window, click on <i>View</i>, and click on <i>Sidebar</i> to turn the panel on.</p>
+
+<p>Other important controls are:</p>
+<ul>
+<li>Navigation controls.  Move around, zoom in and out, and tilt the view (upper right corner of the map 3-D viewer image).</li>
+<li>Eye altitude which displays the height from which you’re viewing the Earth (below the map on the right).</li>
+</ul>
+
+<p>For more information about Google Earth visit the <a href="http://earth.google.com/userguide/" >Google Earth User Guide</a> web site.</p>
+
+<p>Check the <a href=https://hazards.fema.gov/femaportal/wps/portal/NFHLWMSkmzdownload">Using the National Flood Hazard Layer WMS in Google Earth™</a> web site for the latest version of this file.</p>
+
+<p><i>Stay Dry kmz (version 3.0).</i><img align=right src="http://www.floodmaps.fema.gov/img/print_logo.gif"width=100></p>
+</big>]]></description>
+	<LookAt>
+		<longitude>-80.00848163736072</longitude>
+		<latitude>40.43859897429547</latitude>
+		<altitude>0</altitude>
+		<range>1000</range>
+		<tilt>0</tilt>
+		<heading>0</heading>
+		<altitudeMode>relativeToGround</altitudeMode>
+	</LookAt>
+	<Style>
+		<ListStyle>
+			<bgColor>00ffffff</bgColor>
+		</ListStyle>
+	</Style>		
+	<Folder>
+		<name>&quot;Stay Dry&quot; overview</name>
+		<Snippet>Select the checkbox for helpful hints</Snippet>
+		<Style>
+			<ListStyle>
+				<listItemType>checkHideChildren</listItemType>
+				<bgColor>00ffffff</bgColor>
+			</ListStyle>
+		</Style>
+		<ScreenOverlay>
+			<Icon>
+				<href>https://hazards.fema.gov/femaportal/images/resources/symbology/Stay_Dry_Intro.PNG</href>
+			</Icon>
+			<overlayXY x="0.5" y="0.5" xunits="fraction" yunits="fraction"/>
+			<screenXY x="0.5" y="0.5" xunits="fraction" yunits="fraction"/>
+			<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+			<size x="0" y="0" xunits="fraction" yunits="fraction"/>
+		</ScreenOverlay>
+		<ScreenOverlay>
+			<name>Logo</name>
+			<Icon>
+				<href>files/FEMA_Logo.png</href>
+			</Icon>
+			<overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+			<screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+			<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+			<size x="0" y="0" xunits="fraction" yunits="fraction"/>
+		</ScreenOverlay>
+	</Folder>
+	<Folder>
+		<name>View flood hazards for an address</name>
+		<visibility>0</visibility>
+		<Snippet>Displayed layers change with altitude</Snippet>
+		<description><![CDATA[<big>
+
+<p>To view the flood hazards select the <b>View flood hazards for an address</b> checkbox</p>
+
+<img src="files/Checkbox.png" alt="Checkbox button on"/>
+
+<p>The map legend will be displayed.</p>
+
+<p>To see flood hazard information for an address:</p>
+
+<ul>
+<li>Enter the address (for example, <i>2 Stanwix, Pittsburgh, PA</i>) in the "Search" text field in the Search panel on the left. (Or you can enter a latitude and longitude coordinates.)</li>
+
+<li>Click the Search button to search for the location.</li>
+</ul>
+
+<img src="files/Search.png" alt="Search button"/>
+
+<p>The view will zoom to the location and flood hazard map information will be overlaid.</p>
+
+<p>Read the flood hazard information on the map. Use the map legend to interpret the symbols.</p>
+
+<p>Visit <a href="http://www.floodsmart.gov/floodsmart/pages/flooding_flood_risks/defining_flood_risks.jsp"> Defining Flood Risks</a> webpage to learn more about the zones.</p>
+
+<p>Repeat the steps to look at other addresses.</p>
+
+</big>]]></description>
+		<LookAt>
+			<longitude>-80.00848163736072</longitude>
+			<latitude>40.43859897429547</latitude>
+			<altitude>0</altitude>
+			<range>1000</range>
+			<tilt>0</tilt>
+			<heading>0</heading>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<Style>
+			<ListStyle>
+				<listItemType>checkHideChildren</listItemType>
+				<bgColor>00ffffff</bgColor>
+			</ListStyle>
+		</Style>
+		<GroundOverlay>
+			<name>Flood Hazard Boundaries</name>
+			<drawOrder>3</drawOrder>
+			<Icon>
+				<href>https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer?VERSION=1.1.1&amp;REQUEST=GetMap&amp;SRS=EPSG:4326&amp;WIDTH=1024&amp;HEIGHT=1024&amp;LAYERS=1&amp;STYLES=default&amp;TRANSPARENT=TRUE&amp;FORMAT=image/png&amp;</href>
+				<viewRefreshMode>onStop</viewRefreshMode>
+				<viewRefreshTime>1</viewRefreshTime>
+
+			</Icon>
+			<LatLonBox>
+				<north>40.44295560337891</north>
+				<south>40.43424203072357</south>
+				<east>-80.00165886469324</east>
+				<west>-80.01530441002809</west>
+			</LatLonBox>
+		</GroundOverlay>
+		<GroundOverlay>
+			<name>NFHL Availability</name>
+			<color>60ffffff</color>
+			<drawOrder>1</drawOrder>
+			<Icon>
+				<href>https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer?VERSION=1.1.1&amp;REQUEST=GetMap&amp;SRS=EPSG:4326&amp;WIDTH=1024&amp;HEIGHT=1024&amp;LAYERS=3&amp;STYLES=default&amp;TRANSPARENT=TRUE&amp;FORMAT=image/png&amp;</href>
+				<viewRefreshMode>onStop</viewRefreshMode>
+				<viewRefreshTime>1</viewRefreshTime>
+			</Icon>
+			<LatLonBox>
+				<north>40.44295560337891</north>
+				<south>40.43424203072357</south>
+				<east>-80.00165886469324</east>
+				<west>-80.01530441002809</west>
+			</LatLonBox>
+		</GroundOverlay>
+		<GroundOverlay>
+			<name>Flood Hazard Zones</name>
+			<color>60ffffff</color>
+			<drawOrder>1</drawOrder>
+			<Icon>
+				<href>https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer?VERSION=1.1.1&amp;REQUEST=GetMap&amp;SRS=EPSG:4326&amp;WIDTH=1024&amp;HEIGHT=512&amp;LAYERS=0&amp;STYLES=default&amp;TRANSPARENT=TRUE&amp;FORMAT=image/png&amp;</href>
+				<viewRefreshMode>onStop</viewRefreshMode>
+				<viewRefreshTime>1</viewRefreshTime>
+			</Icon>
+			<LatLonBox>
+				<north>40.44295560337891</north>
+				<south>40.43424203072357</south>
+				<east>-80.00165886469324</east>
+				<west>-80.01530441002809</west>
+			</LatLonBox>
+		</GroundOverlay>
+		<GroundOverlay>
+			<name>FIRM Panels</name>
+			<Icon>
+				<href>https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer?VERSION=1.1.1&amp;REQUEST=GetMap&amp;SRS=EPSG:4326&amp;WIDTH=1024&amp;HEIGHT=1024&amp;LAYERS=2&amp;STYLES=default&amp;TRANSPARENT=TRUE&amp;FORMAT=image/png&amp;</href>
+				<viewRefreshMode>onStop</viewRefreshMode>
+				<viewRefreshTime>1</viewRefreshTime>
+				<drawOrder>2</drawOrder>
+			</Icon>
+			<LatLonBox>
+				<north>40.44295560337891</north>
+				<south>40.43424203072357</south>
+				<east>-80.00165886469324</east>
+				<west>-80.01530441002809</west>
+			</LatLonBox>
+		</GroundOverlay>
+		<ScreenOverlay>
+			<name>Flood hazard symbols</name>
+			<Icon>
+				<href>files/Legend.png</href>
+			</Icon>
+			<overlayXY x="1" y="0" xunits="fraction" yunits="fraction"/>
+			<screenXY x="1" y="0.1" xunits="fraction" yunits="fraction"/>
+			<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+			<size x="0" y="0" xunits="fraction" yunits="fraction"/>
+		</ScreenOverlay>
+		<ScreenOverlay>
+			<name>Logo</name>
+			<Icon>
+				<href>files/FEMA_Logo.png</href>
+			</Icon>
+			<overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+			<screenXY x="0" y="1" xunits="fraction" yunits="fraction"/>
+			<rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
+			<size x="0" y="0" xunits="fraction" yunits="fraction"/>
+		</ScreenOverlay>
+	</Folder>
+</Document>
+</kml>

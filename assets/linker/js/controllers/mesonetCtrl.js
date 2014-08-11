@@ -1,4 +1,5 @@
 /*jslint node: true */
+var stations = {};
 app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, $log, $compile, $timeout, $http){
 	mesonet.init();
 	$('#main-nav').css('display','block');
@@ -59,7 +60,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
   $scope.getUserStations = function(){
 		if($scope.user.mapId != -1 && $scope.user.mapId !== null){
 			sailsSocket.get(
-				'/mesoMap/25',{},
+				'/mesoMap/4',{},
 				function(response){
 					$scope.mesoMap = response;
 					$scope.stations = response.mapData;
@@ -98,6 +99,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 									
 									$scope.stations.push(d);
 								});
+								stations = $scope.stations;
 								mesoStation.drawStations($scope.vis);
 								// if(!$scope.userStationsLoaded){
 								// 	userStationLegend();
@@ -394,7 +396,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 
 	$scope.$on('delete_station', function (evt, value) {
 		var delete_index = -1;
-		console.log('delete value',value);
+		//console.log('delete value',value);
 		$scope.stations.forEach(function(d,i){
 			if(i <10) console.log(1*d.lat+1*d.lng);
 			if( (1*d.lat+1*d.lng) == value){
@@ -402,7 +404,7 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 			}
 		});
 		if(delete_index !== -1){
-			console.log(delete_index,$scope.stations[delete_index]);
+			//console.log(delete_index,$scope.stations[delete_index]);
 
 			mesonet.map.removeLayer($scope.stations[delete_index].marker);
 			$scope.markers.splice(delete_index,1);
@@ -485,10 +487,10 @@ app.controller('MesonetCtrl', function MesonetCtrl($scope, $modal, sailsSocket, 
 					if($scope.stations[i].type == 'user'){
 						where = {"where":{"mapId":$scope.mesoMap.id,"stationId":$scope.stations[i].id,"username":$scope.stations[i].username}};
 					}
-					console.log($scope.stations[i],where);
+					//console.log($scope.stations[i],where);
 					sailsSocket.get('/comment/find',where,
 					function(response){
-						console.log(response);
+						//console.log(response);
 						$scope.stations[i].comments = response;
 					});
 				}else{

@@ -30,27 +30,21 @@ var mesonet = {
     //staydry1-4, only change the layers
     //get rid of the width but make sure it works
     //Open up the NYS shapefile in QGIS and save it as a geojson
-    var staydry1 = L.tileLayer.wms("http://107.20.228.18/ArcGIS/services/Riparian/MapServer/KmlServer", {
+    var staydry = L.tileLayer.wms("https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer", {
         layers: 3,
         format: 'image/png',
-        styles:'default',
-        width:1024,
-        height:1024,
-        transparent: true,
+        width:256,
+        height:256,
+        transparent:true,
+        style:'default',
         crs:L.CRS.EPSG4326
-        //attribution: "Weather data © 2012 IEM Nexrad"
     });
-    var nexrad = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
-        layers: 'nexrad-n0r-900913',
-        format: 'image/png',
-        transparent: true,
-        attribution: "Weather data © 2012 IEM Nexrad"
-    });
+    
 
-    var testLayers = {
-      'fema1':fema1,
-      'poland':nexrad
-    }
+    // var testLayers = {
+    //   'fema1':fema1,
+    //   'poland':nexrad
+    // }
     var baseLayers = {
       "Street Map": mapquestOSM,
       "Aerial Imagery": mapquestOAM,
@@ -60,7 +54,7 @@ var mesonet = {
 
     };
    
-    var layerControl = L.control.layers(baseLayers, testLayers, {
+    var layerControl = L.control.layers(baseLayers, {}, {
       collapsed: false
     }).addTo(mesonet.map);
 
@@ -68,8 +62,12 @@ var mesonet = {
     /*load and differentiate leaflet-tile layers for use with sidebar layer control*/
     mesonet.map.addLayer(rainfall);
     $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',7).attr('id','rainfall').hide();
+
+    mesonet.map.addLayer(staydry);
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',8).attr('id','staydry').hide();
+    
     mesonet.map.addLayer(floodplains);
-    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',8).attr('id','floodplains').hide();   
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',9).attr('id','floodplains').hide();   
 
     /*Necessary for Loading Sidebar Properly*/
     var sidebarLoaded = false; 
