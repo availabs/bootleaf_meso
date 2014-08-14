@@ -41,6 +41,15 @@ module.exports.adapters = {
     database:'ny_parcels',
     port: 5432,
     pool: true
+  },
+  postgres_parcels:{
+    module: 'sails-postgresql',
+    host: 'lor.availabs.org',
+    user: 'postgres',
+    password: 'transit',
+    database:'TaxParcels',
+    port: 5432,
+    pool: true
   }
 };
 
