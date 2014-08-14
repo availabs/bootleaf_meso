@@ -145,14 +145,38 @@ app.controller('sidebarCtrl', function sidebarCtrl($scope, sailsSocket, $http){
       });
   
     }else if(layer.visible){
-      $(typeSelect+ layer.selector).fadeOut(600);
-      $('#'+ layer.selector+'_legend').hide();
-      layer.visible=false;
+
+      if(layer.selector == 'staydry'){
+
+        $(typeSelect+'staydry').fadeOut(600);
+        $(typeSelect+'staydry2').fadeOut(600);
+        $(typeSelect+'staydry3').fadeOut(600);
+        $(typeSelect+'staydry4').fadeOut(600);
+        $('#'+ layer.selector+'_legend').hide();
+        layer.visible=false;
+      }
+      else{
+        $(typeSelect+ layer.selector).fadeOut(600);
+        $('#'+ layer.selector+'_legend').hide();
+        layer.visible=false;
+      }
+
     }else {
-      $(typeSelect+ layer.selector).fadeIn(600);
-      $('#'+ layer.selector+'_legend').show();
-      rainfallLegend(layer);
-      layer.visible=true;
+
+      if(layer.selector == 'staydry'){
+        console.log("helllllooooooo");
+        $(typeSelect+'staydry').fadeIn(600);
+        $(typeSelect+'staydry2').fadeIn(600);
+        $(typeSelect+'staydry3').fadeIn(600);
+        $(typeSelect+'staydry4').fadeIn(600);
+        layer.visible=true;
+      }
+      else{
+        $(typeSelect+ layer.selector).fadeIn(600);
+        $('#'+ layer.selector+'_legend').show();
+        rainfallLegend(layer);
+        layer.visible=true;
+      }
     }    
   }
 

@@ -33,25 +33,42 @@ var mesonet = {
     var staydry = L.tileLayer.wms("https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer", {
         layers: 3,
         format: 'image/png',
-        width:256,
-        height:256,
         transparent:true,
         style:'default',
         crs:L.CRS.EPSG4326
     });
-    
-
+    var staydry2 = L.tileLayer.wms("https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer", {
+        layers: 2,
+        format: 'image/png',
+        transparent:true,
+        style:'default',
+        crs:L.CRS.EPSG4326
+    });
+    var staydry3 = L.tileLayer.wms("https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer", {
+        layers: 1,
+        format: 'image/png',
+        transparent:true,
+        style:'default',
+        crs:L.CRS.EPSG4326
+    });
+    var staydry4 = L.tileLayer.wms("https://hazards.fema.gov/gis/nfhl/services/KMZ/StayDry/MapServer/WmsServer", {
+        layers: 0,
+        format: 'image/png',
+        transparent:true,
+        style:'default',
+        crs:L.CRS.EPSG4326
+    });
     // var testLayers = {
     //   'fema1':fema1,
     //   'poland':nexrad
     // }
+
     var baseLayers = {
       "Street Map": mapquestOSM,
       "Aerial Imagery": mapquestOAM,
       "Imagery with Streets": mapquestHYB,
       "Aerial Imagery with Terrain" : mbTerrainSat,
-      "Terrain Contours": mbTerrainReg,
-
+      "Terrain Contours": mbTerrainReg
     };
    
     var layerControl = L.control.layers(baseLayers, {}, {
@@ -65,7 +82,16 @@ var mesonet = {
 
     mesonet.map.addLayer(staydry);
     $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',8).attr('id','staydry').hide();
+
+    mesonet.map.addLayer(staydry2);
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',8).attr('id','staydry2').hide();
     
+    mesonet.map.addLayer(staydry3);
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',8).attr('id','staydry3').hide();
+
+    mesonet.map.addLayer(staydry4);
+    $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',8).attr('id','staydry4').hide();
+
     mesonet.map.addLayer(floodplains);
     $('.leaflet-tile-pane .leaflet-layer').last().css('z-index',9).attr('id','floodplains').hide();   
 
